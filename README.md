@@ -4,8 +4,10 @@
 
 #### 파이어베이스 members 테이블입니다
 
-|member_id|string|
-|name|string|
-|content|string|
-|profile_url|string|
-|createdAt|Date|
+| 컬럼명      | 타입   |
+| ----------- | ------ |
+| member_id   | string |
+| name        | string |
+| content     | string |
+| profile_url | string |
+| createdAt   | Date   |
