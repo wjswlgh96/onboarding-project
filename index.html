@@ -16,15 +16,15 @@
   <style>
     /* 유저 등록 부분 CSS - 시작점 */
 
-    @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap');
 
-    .intro {
-      font-family: "Black Han Sans", serif;
-      background-image: url("https://spartacodingclub.kr/css/images/scc-og.jpg");
-      background-position: right;
-      background-size: 700px;
-      background-repeat: no-repeat;
-    }
+      .intro {
+        font-family: 'Black Han Sans', serif;
+        background-image: url('https://spartacodingclub.kr/css/images/scc-og.jpg');
+        background-position: right;
+        background-size: 700px;
+        background-repeat: no-repeat;
+      }
 
     .btn-group {
       margin-left: 55px;
@@ -187,99 +187,98 @@
       margin: 50px auto 50px auto;
     }
 
-    .navbar>.container {
-      max-width: auto;
-      margin: 0;
-    }
+      .navbar > .container {
+        max-width: auto;
+        margin: 0px;
+      }
+      /* 방명록 부분 CSS - 끝 */
+    </style>
 
-    /* 방명록 부분 CSS - 끝 */
-  </style>
+    <!-- FireBase 연동 및 기능 넣는 구간 -->
+    <script type="module">
+      /* 파이어베이스 시작점 */
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+      import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      import {
+        collection,
+        query,
+        where,
+        addDoc,
+        getDocs,
+        getDoc,
+        setDoc,
+        doc,
+      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      import {
+        getStorage,
+        ref,
+        uploadBytes,
+        getDownloadURL,
+      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
 
-  <!-- FireBase 연동 및 기능 넣는 구간 -->
-  <script type="module">
-    /* 파이어베이스 시작점 */
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-    import {
-      collection,
-      query,
-      where,
-      addDoc,
-      getDocs,
-      getDoc,
-      setDoc,
-      doc,
-    } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-    import {
-      getStorage,
-      ref,
-      uploadBytes,
-      getDownloadURL,
-    } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBi68Bib9QK92ATsOSiYZ0rdvz2kMwXi88",
-      authDomain: "onboarding-project-6b59e.firebaseapp.com",
-      projectId: "onboarding-project-6b59e",
-      storageBucket: "onboarding-project-6b59e.firebasestorage.app",
-      messagingSenderId: "654347061607",
-      appId: "1:654347061607:web:3c6f4e1e4c880db463c7c2",
-    };
+      const firebaseConfig = {
+        apiKey: 'AIzaSyBi68Bib9QK92ATsOSiYZ0rdvz2kMwXi88',
+        authDomain: 'onboarding-project-6b59e.firebaseapp.com',
+        projectId: 'onboarding-project-6b59e',
+        storageBucket: 'onboarding-project-6b59e.firebasestorage.app',
+        messagingSenderId: '654347061607',
+        appId: '1:654347061607:web:3c6f4e1e4c880db463c7c2',
+      };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const storage = getStorage(app);
     /* 파이어베이스 끝 */
 
-    /* 여기부터 작성하시면 됩니다!! */
-    /* 멤버 등록 로직 - 시작 (전지호) */
-    let selectedFile = null;
-    let downloadURL = "";
+      /* 여기부터 작성하시면 됩니다!! */
+      /* 멤버 등록 로직 - 시작 (전지호) */
+      let selectedFile = null;
+      let downloadURL = '';
 
-    $("#photoUrl").on("change", async (event) => {
-      const fileInput = event.target;
-      const file = fileInput.files[0];
-      selectedFile = file;
+      $('#photoUrl').on('change', async (event) => {
+        const fileInput = event.target;
+        const file = fileInput.files[0];
+        selectedFile = file;
 
-      if (file) {
-        // 로컬 사진 blob src에 등록
-        const blobUrl = URL.createObjectURL(file);
-        downloadURL = blobUrl;
-        $("#photo").attr("src", blobUrl).show();
-        $("#photoLabel").hide();
-      } else {
-        $("#photo").hide();
-      }
-    });
+        if (file) {
+          // 로컬 사진 blob src에 등록
+          const blobUrl = URL.createObjectURL(file);
+          downloadURL = blobUrl;
+          $('#photo').attr('src', blobUrl).show();
+          $('#photoLabel').hide();
+        } else {
+          $('#photo').hide();
+        }
+      });
 
-    $("#add_member_submit").on("click", async (event) => {
-      event.preventDefault();
+      $('#add_member_submit').on('click', async (event) => {
+        event.preventDefault();
 
-      let isLoading = true;
-      if (isLoading) {
-        $("#add_member_submit").html("멤버 등록중!!!");
-        $("#add_member_submit").attr("disabled", true);
-      }
+        let isLoading = true;
+        if (isLoading) {
+          $('#add_member_submit').html('멤버 등록중!!!');
+          $('#add_member_submit').attr('disabled', true);
+        }
 
-      const member_id = $("#member_id").val();
-      const name = $("#name").val();
-      const content = $("#content").val().replace(/(\n)/g, "<br>");
+        const member_id = $('#member_id').val();
+        const name = $('#name').val();
+        const content = $('#content').val().replace(/(\n)/g, '<br>');
 
-      if (!selectedFile) {
-        alert("프로필 사진을 등록해주세요!");
-        return;
-      }
-
-      try {
-        // 유저 중복 검사
-        const memberDocRef = doc(db, "members", member_id);
-        const memberDoc = await getDoc(memberDocRef);
-        const memberData = memberDoc.data();
-
-        if (memberData) {
-          alert("이미 등록된 아이디입니다.");
+        if (!selectedFile) {
+          alert('프로필 사진을 등록해주세요!');
           return;
         }
+
+        try {
+          // 유저 중복 검사
+          const memberDocRef = doc(db, 'members', member_id);
+          const memberDoc = await getDoc(memberDocRef);
+          const memberData = memberDoc.data();
+
+          if (memberData) {
+            alert('이미 등록된 아이디입니다.');
+            return;
+          }
 
         // storage 경로에 사진 업로드
         const storageRefPath = `profile_pictures/${member_id}/profile.png`;
@@ -296,13 +295,13 @@
           createdAt: new Date().toLocaleString(),
         });
 
-        alert("멤버가 성공적으로 등록되었습니다.");
-        window.location.reload();
-      } catch (error) {
-        alert("멤버 정보 등록 중 오류가 발생했습니다.");
-        console.error(error);
-      }
-    });
+          alert('멤버가 성공적으로 등록되었습니다.');
+          window.location.reload();
+        } catch (error) {
+          alert('멤버 정보 등록 중 오류가 발생했습니다.');
+          console.error(error);
+        }
+      });
 
     $("#photo").on("click", () => {
       $("#photoUrl").click();
@@ -339,134 +338,168 @@
       getAllGstBook();
     });
 
-    //이벤트 등록
-    const eventListener = () => {
-      //등록 버튼이벤트
-      $("#addGstBookBtn").on("click", () => {
-        let text = $("#gstbook_text").val();
-        let username = $("#gstbook_username").val();
-        addGstBook({ text, username });
-      });
-    };
-    //방명록 추가
-    const addGstBook = async (data) => {
-      let gstBookDoc = await addDoc(collection(db, "gst_book"), {
-        text: data.text,
-        username: data.username,
-        create_dt: Date.now(),
-      });
-      getAllGstBook();
-    };
+      //이벤트 등록
+      const eventListener = () => {
+        //등록 버튼이벤트
+        $('#addGstBookBtn').on('click', () => {
+          let text = $('#gstbook_text').val();
+          let username = $('#gstbook_username').val();
+          addGstBook({ text, username });
+        });
+      };
+      //방명록 추가
+      const addGstBook = async (data) => {
+        let gstBookDoc = await addDoc(collection(db, 'gst_book'), {
+          text: data.text,
+          username: data.username,
+          create_dt: Date.now(),
+        });
 
-    //방명록 목록 가져오기
-    const getAllGstBook = async () => {
-      let allDocs = await getDocs(collection(db, "gst_book"));
-      let res = [];
-      let html = "";
+        getAllGstBook();
+      };
 
-      //allDocs to res mapper
-      allDocs.forEach((doc) => {
-        let data = doc.data();
-        res = [
-          ...res,
-          {
-            text: data.text,
-            username: data.username,
-            create_dt: data.create_dt,
-          },
-        ];
-      });
+      //방명록 목록 가져오기
+      const getAllGstBook = async () => {
+        let allDocs = await getDocs(collection(db, 'gst_book'));
+        let res = [];
+        let html = '';
+
+        allDocs.docs.map((doc) => {
+          res = [
+            ...res,
+            {
+              id: doc.id,
+              ...doc.data(),
+            },
+          ];
+        });
+
+        /* 수정, 삭제를 위한 엘리먼트에 id 넣었습니다. */
+        //allDocs to res mapper
+        // allDocs.forEach((doc) => {
+        //   let data = doc.data();
+
+        //   res = [
+        //     ...res,
+        //     {
+        //       text: data.text,
+        //       username: data.username,
+        //       create_dt: data.create_dt,
+        //     },
+        //   ];
+        // });
 
       //생성일 기준 내림차순순
       res.sort((a, b) => b.create_dt - a.create_dt);
 
-      //돔조작
-      $(".gstbook_list").empty();
-      res.forEach((data) => {
-        html =
-          html +
-          `<div class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
-      <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${data.username || "익명"
-          }</div>
-      <div style='color: #555; font-size: 14px; line-height: 1.5;'>${data.text
-          }</div>
-      <div style='font-size: 12px; color: #999; margin-top: 5px;'>${new Date(
-            data.create_dt
-          ).toLocaleString()}</div>
-    </div>`;
-      });
-      $(".gstbook_list").append(html);
-    };
+        //돔조작
+        $('.gstbook_list').empty();
+        res.forEach((data) => {
+          html =
+            html +
+            `<div id="${
+              data.id
+            }" class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
+        <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${
+          data.username || '익명'
+        }</div>
+        <div style='color: #555; font-size: 14px; line-height: 1.5;'>${
+          data.text
+        }</div>
+        <div style='font-size: 12px; color: #999; margin-top: 5px;'>${new Date(
+          data.create_dt
+        ).toLocaleString()}</div>
+      </div>`;
+        });
+        $('.gstbook_list').append(html);
+      };
 
-    /* 방명록 등록 로직 */
-  </script>
-</head>
-
-<body>
-  <div>
-    <header data-bs-theme="dark">
-      <div class="collapse text-bg-dark" id="navbarHeader">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-              <h4>About</h4>
-              <p class="text-body-secondary">
-                Add some information about the album below, the author, or any
-                other background context. Make it a few sentences long so
-                folks can pick up some informative tidbits. Then, link them
-                off to some social networking sites or contact information.
-              </p>
-            </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <h4>Contact</h4>
-              <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                <li><a href="#" class="text-white">Like on Facebook</a></li>
-                <li><a href="#" class="text-white">Email me</a></li>
-              </ul>
+      /* 방명록 등록 로직 */
+    </script>
+  </head>
+  <body>
+    <div>
+      <header data-bs-theme="dark">
+        <div class="collapse text-bg-dark" id="navbarHeader">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-md-7 py-4">
+                <h4>About</h4>
+                <p class="text-body-secondary">
+                  Add some information about the album below, the author, or any
+                  other background context. Make it a few sentences long so
+                  folks can pick up some informative tidbits. Then, link them
+                  off to some social networking sites or contact information.
+                </p>
+              </div>
+              <div class="col-sm-4 offset-md-1 py-4">
+                <h4>Contact</h4>
+                <ul class="list-unstyled">
+                  <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                  <li><a href="#" class="text-white">Like on Facebook</a></li>
+                  <li><a href="#" class="text-white">Email me</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="navbar navbar-dark bg-danger shadow-sm">
-        <div class="container">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
-              viewBox="0 0 24 24">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-              <circle cx="12" cy="13" r="4"></circle>
-            </svg>
-            <strong>언젠간되겠지(희망을 품은 개발자들)</strong>
-          </a>
+        <div class="navbar navbar-dark bg-danger shadow-sm">
+          <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                aria-hidden="true"
+                class="me-2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                ></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              <strong>언젠간되겠지 (희망을 품은 개발자들)</strong>
+            </a>
+          </div>
         </div>
+      </header>
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic mixed styles example"
+      >
+        <button type="button" class="btn btn-primary">팀소개</button>
+        <button type="button" class="btn btn-warning">팀원등록</button>
+        <button type="button" class="btn btn-success">팀원카드</button>
+        <button type="button" class="btn btn-info">방명록</button>
       </div>
-    </header>
-    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-      <button type="button" class="btn btn-danger">소개</button>
-      <button type="button" class="btn btn-warning">팀원등록</button>
-      <button type="button" class="btn btn-success">팀원카드</button>
-      <button type="button" class="btn btn-info">방명록</button>
-    </div>
 
-    <div class="intro">
-      <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-        <div class="col-lg-6 px-0">
-          <h1 style="color: brown" class="display-4 fst-italic">
-            Who are we?
-          </h1>
-          <p class="lead my-3">
-            “언젠간되겠지”팀은 희망과 긍정의 에너지를 무기로 삼고 우리는 당장
-            해결되지 않아도, 끝이 보이지 않아도, 결국엔 해내고야 마는
-            팀입니다. 끈기와 유머로 무장한 우리는 어떤 난관 앞에서도 웃음을
-            잃지 않습니다. 실패는 단지 과정일 뿐이며, 성공은 반드시 찾아온다고
-            믿습니다.
-          </p>
-          <h3 style="color: red">우리도 큰일 낼 수 있어! :)</h3>
+      <div class="intro">
+        <div
+          class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
+        >
+          <div class="col-lg-6 px-0">
+            <h1 style="color: brown" class="display-4 fst-italic">
+              Who are we?
+            </h1>
+            <p class="lead my-3">
+              “언젠간되겠지”팀은 희망과 긍정의 에너지를 무기로 삼고 우리는 당장
+              해결되지 않아도, 끝이 보이지 않아도, 결국엔 해내고야 마는
+              팀입니다. 끈기와 유머로 무장한 우리는 어떤 난관 앞에서도 웃음을
+              잃지 않습니다. 실패는 단지 과정일 뿐이며, 성공은 반드시 찾아온다고
+              믿습니다.
+            </p>
+            <h3 style="color: red">언젠간 우리도 큰일 낼 수 있어! :)</h3>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 시작 -->
+      <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 시작 -->
 
     <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
     <div class="add_member_wraper">
@@ -522,16 +555,36 @@
               border: 1px solid #ced4da;
               width: 80px;
               padding: 6px 12px 6px 12px;
-            " placeholder="작성자" />
-        <input class="form-control" type="text" style="height: 70px" id="gstbook_text" placeholder="내용" />
-        <div class="d-flex mt-2 justify-content-end">
-          <button class="btn btn-primary" id="addGstBookBtn">등록</button>
+            "
+            placeholder="작성자"
+          />
+          <input
+            class="form-control"
+            type="text"
+            style="height: 70px"
+            id="gstbook_text"
+            placeholder="내용"
+          />
+          <div class="d-flex mt-2 justify-content-end">
+            <button class="btn btn-primary" id="addGstBookBtn">등록</button>
+          </div>
+          <div class="gstbook_list"></div>
         </div>
-        <div class="gstbook_list"></div>
       </div>
+      <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 끝 -->
     </div>
-    <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 끝 -->
-  </div>
-</body>
 
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-body-secondary">Top</a>
+          </li>
+        </ul>
+        <p class="text-center text-body-secondary">
+          © 2024 스파르타 내일배움캠프 Spring 5기_언젠간되겠지팀
+        </p>
+      </footer>
+    </div>
+  </body>
 </html>
