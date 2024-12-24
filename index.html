@@ -22,7 +22,7 @@
       @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap');
 
       .intro {
-        font-family: "Black Han Sans", serif;
+        font-family: 'Black Han Sans', serif;
         background-image: url('https://spartacodingclub.kr/css/images/scc-og.jpg');
         background-position: right;
         background-size: 700px;
@@ -150,8 +150,8 @@
 
       .navbar > .container {
         max-width: auto;
-        margin: 0px
-}
+        margin: 0px;
+      }
       /* 방명록 부분 CSS - 끝 */
     </style>
 
@@ -292,6 +292,7 @@
           username: data.username,
           create_dt: Date.now(),
         });
+
         getAllGstBook();
       };
 
@@ -301,18 +302,30 @@
         let res = [];
         let html = '';
 
-        //allDocs to res mapper
-        allDocs.forEach((doc) => {
-          let data = doc.data();
+        allDocs.docs.map((doc) => {
           res = [
             ...res,
             {
-              text: data.text,
-              username: data.username,
-              create_dt: data.create_dt,
+              id: doc.id,
+              ...doc.data(),
             },
           ];
         });
+
+        /* 수정, 삭제를 위한 엘리먼트에 id 넣었습니다. */
+        //allDocs to res mapper
+        // allDocs.forEach((doc) => {
+        //   let data = doc.data();
+
+        //   res = [
+        //     ...res,
+        //     {
+        //       text: data.text,
+        //       username: data.username,
+        //       create_dt: data.create_dt,
+        //     },
+        //   ];
+        // });
 
         //생성일 기준 내림차순순
         res.sort((a, b) => b.create_dt - a.create_dt);
@@ -322,17 +335,19 @@
         res.forEach((data) => {
           html =
             html +
-            `<div class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
-      <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${
-        data.username || '익명'
-      }</div>
-      <div style='color: #555; font-size: 14px; line-height: 1.5;'>${
-        data.text
-      }</div>
-      <div style='font-size: 12px; color: #999; margin-top: 5px;'>${new Date(
-        data.create_dt
-      ).toLocaleString()}</div>
-    </div>`;
+            `<div id="${
+              data.id
+            }" class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
+        <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${
+          data.username || '익명'
+        }</div>
+        <div style='color: #555; font-size: 14px; line-height: 1.5;'>${
+          data.text
+        }</div>
+        <div style='font-size: 12px; color: #999; margin-top: 5px;'>${new Date(
+          data.create_dt
+        ).toLocaleString()}</div>
+      </div>`;
         });
         $('.gstbook_list').append(html);
       };
@@ -348,7 +363,12 @@
             <div class="row">
               <div class="col-sm-8 col-md-7 py-4">
                 <h4>About</h4>
-                <p class="text-body-secondary">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+                <p class="text-body-secondary">
+                  Add some information about the album below, the author, or any
+                  other background context. Make it a few sentences long so
+                  folks can pick up some informative tidbits. Then, link them
+                  off to some social networking sites or contact information.
+                </p>
               </div>
               <div class="col-sm-4 offset-md-1 py-4">
                 <h4>Contact</h4>
@@ -364,28 +384,47 @@
         <div class="navbar navbar-dark bg-danger shadow-sm">
           <div class="container">
             <a href="#" class="navbar-brand d-flex align-items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                aria-hidden="true"
+                class="me-2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                ></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
               <strong>언젠간되겠지(희망을 품은 개발자들)</strong>
             </a>
           </div>
         </div>
       </header>
-      <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-        <button type="button" class="btn btn-primary">팀소개</button>
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic mixed styles example"
+      >
+        <button type="button" class="btn btn-primary">소개</button>
         <button type="button" class="btn btn-warning">팀원등록</button>
         <button type="button" class="btn btn-success">팀원카드</button>
         <button type="button" class="btn btn-info">방명록</button>
       </div>
-      
-
 
       <div class="intro">
         <div
           class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
         >
           <div class="col-lg-6 px-0">
-            <h1 style="color: brown;" class="display-4 fst-italic">
-             Who are we?
+            <h1 style="color: brown" class="display-4 fst-italic">
+              Who are we?
             </h1>
             <p class="lead my-3">
               “언젠간되겠지”팀은 희망과 긍정의 에너지를 무기로 삼고 우리는 당장
@@ -393,8 +432,8 @@
               팀입니다. 끈기와 유머로 무장한 우리는 어떤 난관 앞에서도 웃음을
               잃지 않습니다. 실패는 단지 과정일 뿐이며, 성공은 반드시 찾아온다고
               믿습니다.
-              <h3 style="color: red;">우리도 큰일 낼 수 있어! :)</h3>
             </p>
+            <h3 style="color: red">우리도 큰일 낼 수 있어! :)</h3>
           </div>
         </div>
       </div>
@@ -495,10 +534,13 @@
     <div class="container">
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Top</a></li>
-         
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-body-secondary">Top</a>
+          </li>
         </ul>
-        <p class="text-center text-body-secondary">© 2024 스파르타 내일배움캠프 Spring 5기_언젠간되겠지팀</p>
+        <p class="text-center text-body-secondary">
+          © 2024 스파르타 내일배움캠프 Spring 5기_언젠간되겠지팀
+        </p>
       </footer>
     </div>
   </body>
