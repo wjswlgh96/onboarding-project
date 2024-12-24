@@ -421,6 +421,9 @@
         $('.gstbook_list').append(html);
       };
 
+      $('#btn').click(async function () {
+        $('#postingbox').toggle();
+      });
       /* 방명록 등록 로직 */
     </script>
   </head>
@@ -482,7 +485,7 @@
         aria-label="Basic mixed styles example"
       >
         <button type="button" class="btn btn-primary">팀소개</button>
-        <button type="button" class="btn btn-warning">팀원등록</button>
+        <button id="btn" type="button" class="btn btn-warning">팀원등록</button>
         <button type="button" class="btn btn-success">팀원카드</button>
         <button type="button" class="btn btn-info">방명록</button>
       </div>
@@ -508,23 +511,34 @@
       </div>
       <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 시작 -->
 
-    <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
-    <div class="add_member_wraper">
-      <form>
-        <div class="add_member_top_inner">
-          <div class="add_member_photo_wrapper">
-            <div class="add_member_label">프로필 사진</div>
-            <label id="photoLabel" class="add_member_photo_label" for="photoUrl" required>
-              눌러서 사진 업로드
-            </label>
-            <input id="photoUrl" type="file" accept="image/*" hidden />
-            <img id="photo" src="#" class="add_member_photo" />
-          </div>
-          <div class="add_member_info_wrapper">
-            <div>
-              <label class="add_member_label" for="member_id">아이디</label>
-              <input id="member_id" type="text" placeholder="아이디를 입력해주세요." class="add_member_input" required />
+      <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
+      <div class="add_member_wraper" id="postingbox">
+        <form>
+          <div class="add_member_top_inner">
+            <div class="add_member_photo_wrapper">
+              <div class="add_member_label">프로필 사진</div>
+              <label
+                id="photoLabel"
+                class="add_member_photo_label"
+                for="photoUrl"
+                required
+              >
+                눌러서 사진 업로드
+              </label>
+              <input id="photoUrl" type="file" accept="image/*" hidden />
+              <img id="photo" src="#" class="add_member_photo" />
             </div>
+            <div class="add_member_info_wrapper">
+              <div>
+                <label class="add_member_label" for="member_id">아이디</label>
+                <input
+                  id="member_id"
+                  type="text"
+                  placeholder="아이디를 입력해주세요."
+                  class="add_member_input"
+                  required
+                />
+              </div>
 
             <div>
               <label class="add_member_label" for="name">이름</label>
