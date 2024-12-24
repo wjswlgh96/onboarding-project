@@ -65,9 +65,14 @@
         border-bottom: 1px solid #95a5a6;
       }
 
+      .profile_img_wrapper {
+        display: flex;
+        align-items: center;
+      }
+
       #my_profile_img {
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
         border-radius: 100%;
         border: 1px solid #95a5a6;
 
@@ -132,8 +137,10 @@
         height: 30px;
         fill: white;
         cursor: pointer;
+        transition: transform 0.2s ease-out;
 
         &:hover {
+          transform: scale(1.2);
           opacity: 0.6;
         }
       }
@@ -190,8 +197,6 @@
 
         interestsDatas.map((data) => {
           const random = Math.floor(Math.random() * randomBgColor.length);
-          console.log("random: ", random);
-
           const newHTML = `
             <p class="chip" style="background-color: ${randomBgColor[random]};">${data}</p>
           `;
@@ -206,7 +211,7 @@
       <div class="container">
         <section class="data_section">
           <div class="section_top_wrapper">
-            <div>
+            <div class="profile_img_wrapper">
               <img id="my_profile_img" alt="프로필 사진" />
             </div>
             <div class="info_wrapper">
