@@ -16,14 +16,29 @@
       crossorigin="anonymous"
     />
 
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
+      * {
+        font-family: "Noto Sans KR", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+
       .container {
-        width: 45%;
+        width: 600px;
         min-height: 100vh;
-        padding: 50px 100px;
+        padding: 50px;
 
         margin: 0 auto;
-        background-color: coral;
+        background-color: #2c3e50;
       }
 
       .data_section {
@@ -34,16 +49,31 @@
         width: 100%;
         display: grid;
         grid-template-columns: 0.5fr 1fr;
+        gap: 50px;
       }
 
       #my_profile_img {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         border-radius: 100%;
-        border: 1px solid black;
+        border: 1px solid #95a5a6;
 
         object-position: center;
         object-fit: cover;
+      }
+
+      .info_wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .subtitle {
+        font-size: 18px;
       }
     </style>
 
@@ -78,9 +108,11 @@
         const { member_id, name, profile_url, content, createdAt } =
           myData.data();
 
+        const [year, month, day] = createdAt.split(". ");
+
         $("#my_profile_img").attr("src", profile_url);
-        $("#my_name").text(name);
-        $("#my_created_at").text(createdAt);
+        $("#my_name").text("😊 " + name);
+        $("#my_content").text(content);
       });
     </script>
   </head>
@@ -91,12 +123,16 @@
           <div>
             <img id="my_profile_img" alt="프로필 사진" />
           </div>
-          <div>
+          <div class="info_wrapper">
             <p id="my_name"></p>
-            <p id="my_created_at"></p>
+            <p>관심사</p>
+            <p>MBTI</p>
+            <p>하고 싶은 말</p>
           </div>
         </div>
-        <div class="section_bottom_wrapper"></div>
+        <div class="section_bottom_wrapper">
+          <p id="my_content"></p>
+        </div>
       </section>
     </div>
   </body>
