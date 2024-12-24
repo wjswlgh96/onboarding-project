@@ -9,3 +9,5 @@
 | content     | String |
 | profile_url | String |
 | createdAt   | Date   |
+
+확인
