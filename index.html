@@ -311,16 +311,17 @@
     let docs = await getDocs(collection(db, "members"));
     docs.forEach((doc) => {
       let row = doc.data();
-      console.log(row);
 
       let id = row['member_id'];
       let image = row['profile_url'];
       let name = row['name'];
 
+      
 
+      
       let temp_html = ` 
             <div class="col">
-                <div class="card h-100" data-id="${id}">
+                <div class="card h-100" id="${id}">
                     <img src="${image}"
                         class="card-img-top" alt="...">
                     <div class="card-body">
@@ -329,7 +330,13 @@
                 </div>
             </div>`;
       $('#card').append(temp_html);
+
+      $(`#${id}`).on('click', function(){
+        window.location.href = "./"+id+".html";
+      })
     });
+
+    $('#card').on('click', '',)
     /* 카드 로직 종료 */
     /* 방명록 등록 로직 */
 
