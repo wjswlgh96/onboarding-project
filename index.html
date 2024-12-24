@@ -352,6 +352,9 @@
         $('.gstbook_list').append(html);
       };
 
+      $('#btn').click(async function () {
+        $('#postingbox').toggle();
+      });
       /* 방명록 등록 로직 */
     </script>
   </head>
@@ -413,7 +416,7 @@
         aria-label="Basic mixed styles example"
       >
         <button type="button" class="btn btn-primary">팀소개</button>
-        <button type="button" class="btn btn-warning">팀원등록</button>
+        <button id="btn" type="button" class="btn btn-warning">팀원등록</button>
         <button type="button" class="btn btn-success">팀원카드</button>
         <button type="button" class="btn btn-info">방명록</button>
       </div>
@@ -440,7 +443,7 @@
       <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 시작 -->
 
       <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
-      <div class="add_member_wraper">
+      <div class="add_member_wraper" id="postingbox">
         <form>
           <div class="add_member_top_inner">
             <div class="add_member_photo_wrapper">
