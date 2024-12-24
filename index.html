@@ -241,6 +241,52 @@
         $("#photoUrl").click();
       });
       /* 멤버 등록 로직 - 끝 */
+
+      /* 방명록 등록 로직 */
+
+      $(document).ready(function(){
+        eventListener();
+        getAllGstBook();
+      });
+
+      //이벤트 등록
+      const eventListener = () =>{
+        //등록 버튼이벤트
+        $("#addGstBookBtn").on('click',()=>{
+          let text =  $("#gstbook_text").val()
+          addGstBook(text);
+        })
+      }
+      //방명록 추가
+      const addGstBook = async (text) =>{
+        let gstBookDoc =await addDoc(collection(db, "gst_book"),{text : text, create_dt : Date.now()})
+        getAllGstBook()
+      }
+
+      //방명록 목록 가져오기
+      const getAllGstBook = async () =>{
+        let allDocs =  await getDocs(collection(db,"gst_book"))
+        let res = []
+        let html = '';
+
+        //allDocs to res mapper
+        allDocs.forEach(doc => {
+          res = [...res,{text : doc.data().text, create_dt : doc.data().create_dt}]
+        })
+
+        //생성일 기준 내림차순순
+        res.sort((a,b) => b.create_dt - a.create_dt)
+
+        //돔조작
+        $('.gstbook_list').empty()
+        res.forEach(data =>{
+          html = html + `<div class='pd-3'>${data.text}</div>`
+        })
+        $('.gstbook_list').append(html)
+      }
+    
+    
+      /* 방명록 등록 로직 */
     </script>
   </head>
   <body>
@@ -307,8 +353,16 @@
         </form>
       </div>
       <!-- 신규 멤버 등록 HTML - 끝 -->
-
+      <div class="guestBook">
+        <div class="mt-2 p-5 bg-gray rounded">
+          <h2 class="fs-6">방명록 남기기</h2>
+          <input class="form-control" type="text" id="gstbook_text">
+          <div class="d-flex mt-2 justify-content-end">
+              <button class="btn btn-primary" id = 'addGstBookBtn'>등록</button>
+          </div>
+          <div class = "gstbook_list" ></div>
+      </div>
+      </div>
       <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 끝 -->
-    </div>
   </body>
 </html>
