@@ -185,7 +185,8 @@
           $("#addGstBookBtn").on("click", () => {
             let text = $("#gstbook_text").val();
             let username = $("#gstbook_username").val();
-            addGstBook({ text, username });
+            let password = $("#gstbook_pw").val();
+            addGstBook({ text, username, password });
           });
         };
         //방명록 추가
@@ -193,6 +194,7 @@
           let gstBookDoc = await addDoc(collection(db, "gst_book"), {
             text: data.text,
             username: data.username,
+            password:data.password,
             create_dt: Date.now(),
           });
   
@@ -256,13 +258,19 @@
                 // Firestore에서 문서 참조 생성 및 삭제
                 let gstBookDocId = doc(db, "gst_book", guestId);
                 console.log("삭제할 문서 ID:", gstBookDocId);
+                
+                let getpass = prompt("비밀번호를 입력하세요.");
 
-                await deleteDoc(gstBookDocId);
-                alert("문서가 성공적으로 삭제되었습니다.");
-                window.location.reload();
+                if(data.password==getpass){
+                  await deleteDoc(gstBookDocId);
+                  alert("방명록이 성공적으로 삭제되었습니다.");
+                  window.location.reload();
+                } else {
+                  alert("비밀번호가 다릅니다.");
+                }
                 } catch (error) {
-                console.error("문서 삭제 중 오류 발생:", error);
-                alert("문서 삭제에 실패했습니다.");
+                console.error("방명록 삭제 중 오류 발생:", error);
+                alert("방명록 삭제에 실패했습니다.");
                 }
             });
           });
@@ -351,6 +359,14 @@
                       width: 80px; padding: 6px 12px 6px 12px;" 
                 placeholder="작성자">
           <input class="form-control" type="text" style="height: 70px; "id="gstbook_text" placeholder="내용">
+          <input type="text" 
+                class = "form-control"
+                id="gstbook_pw"
+                style="margin-bottom: 7px; 
+                      border-radius: 4px; 
+                      border : 1px solid #ced4da; 
+                      width: 80px; padding: 6px 12px 6px 12px;" 
+                placeholder="비밀번호">
           <div class="d-flex mt-2 justify-content-end">
               <button class="btn btn-primary" id = 'addGstBookBtn'>등록</button>
           </div>
