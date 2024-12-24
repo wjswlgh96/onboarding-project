@@ -1,191 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>언젠간되겠지 소개 페이지</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>언젠간되겠지 소개 페이지</title>
+    <!-- jQuery Script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- jQuery Script -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- BootStrap Script -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
 
-  <!-- BootStrap Script -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <style>
+      /* 유저 등록 부분 CSS - 시작점 */
 
-  <style>
-    /* 유저 등록 부분 CSS - 시작점 */
+      @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap");
 
-      @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap');
+      .header_sticky {
+        position: fixed;
+        width: 100%;
+        height: 40px;
+
+        z-index: 1000;
+      }
+
+      .content_container {
+        padding-top: 80px;
+      }
 
       .intro {
-        font-family: 'Black Han Sans', serif;
-        background-image: url('https://spartacodingclub.kr/css/images/scc-og.jpg');
+        font-family: "Black Han Sans", serif;
+        background-image: url("https://spartacodingclub.kr/css/images/scc-og.jpg");
         background-position: right;
         background-size: 700px;
         background-repeat: no-repeat;
       }
 
-    .btn-group {
-      margin-left: 55px;
-    }
-
-    .add_member_wraper {
-      width: 600px;
-      margin: 50px auto;
-
-      border: 1px solid lightgray;
-      border-radius: 10px;
-
-      box-shadow: 0px 0px 5px black;
-
-      padding: 30px;
-    }
-
-    .add_member_top_inner {
-      width: 100%;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 50px;
-
-      margin-bottom: 30px;
-    }
-
-    .add_member_photo_wrapper {
-      display: flex;
-      flex-direction: column;
-
-      align-items: center;
-    }
-
-    .add_member_photo_label {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      width: 100px;
-      height: 100px;
-      border-radius: 100%;
-
-      border: 1px solid black;
-
-      cursor: pointer;
-
-      &:hover {
-        opacity: 0.6;
+      .btn-group {
+        margin-left: 55px;
       }
-    }
 
-    .add_member_photo {
-      display: none;
-      width: 100px;
-      height: 100px;
-
-      object-fit: cover;
-
-      border-radius: 100%;
-      border: 1px solid black;
-
-      cursor: pointer;
-
-      &:hover {
-        opacity: 0.6;
+      .scroll_action_02 {
+        padding: 50px 0;
       }
-    }
 
-    .add_member_info_wrapper {
-      display: flex;
-      flex-direction: column;
-
-      gap: 10px;
-    }
-
-    .add_member_label {
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .add_member_input {
-      width: 100%;
-
-      border-radius: 5px;
-      border: 1px solid black;
-      padding: 5px 10px;
-    }
-
-    .add_member_textarea {
-      width: 100%;
-      min-height: 150px;
-      resize: none;
-
-      padding: 5px 10px;
-    }
-
-    .add_member_btn_wrapper {
-      width: 100%;
-      height: 40px;
-    }
-
-    .add_member_btn {
-      min-width: 100px;
-      height: 40px;
-      background-color: transparent;
-      border: 1px solid black;
-      border-radius: 5px;
-      float: right;
-
-      &:hover {
-        opacity: 0.6;
+      .scroll_action_03 {
+        width: 80%;
+        margin: 0 auto;
       }
-    }
 
-    /* 유저 등록 부분 CSS - 끝 */
-    /* 멤버 카드 부분 CSS 시작 */
-    .mycards {
-      padding: 25px;
-    }
+      .add_member_wraper {
+        display: none;
+        width: 600px;
+        margin: 0px auto;
 
+        border: 1px solid lightgray;
+        border-radius: 10px;
 
-    .card {
-      background-color: #fff;
-      border-radius: 15px;
-      /* 둥근 모서리 */
-      overflow: hidden;
-      /* 사진이 카드 밖으로 나가지 않도록 */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      /* 카드 그림자 */
-      transition: transform 0.2s ease-in-out;
-      /* 카드 hover 효과 */
-    }
+        box-shadow: 0px 0px 5px black;
 
-    .card:hover {
-      transform: translateY(-10px);
-      /* 카드 hover 시 살짝 위로 올라가게 */
-    }
+        padding: 30px;
+      }
 
-    .card img {
-      width: 100%;
-      height: 300px;
-    }
+      .add_member_top_inner {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 50px;
 
-    .card-body h5 {
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-      margin-top: 10px;
-    }
+        margin-bottom: 30px;
+      }
 
-    .card-body p {
-      font-size: 14px;
-      
-      color: #777;
-    }
+      .add_member_photo_wrapper {
+        display: flex;
+        flex-direction: column;
 
-    /* 멤버 카드 부분 CSS 끝 */
-    /* 방명록 부분 CSS */
-    .guestBook {
-      width: 1000px;
-      margin: 50px auto 50px auto;
-    }
+        align-items: center;
+      }
+
+      .add_member_photo_label {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+
+        border: 1px solid black;
+
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      .add_member_photo {
+        display: none;
+        width: 100px;
+        height: 100px;
+
+        object-fit: cover;
+
+        border-radius: 100%;
+        border: 1px solid black;
+
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      .add_member_info_wrapper {
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+      }
+
+      .add_member_label {
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .add_member_input {
+        width: 100%;
+
+        border-radius: 5px;
+        border: 1px solid black;
+        padding: 5px 10px;
+      }
+
+      .add_member_textarea {
+        width: 100%;
+        min-height: 150px;
+        resize: none;
+
+        padding: 5px 10px;
+      }
+
+      .add_member_btn_wrapper {
+        width: 100%;
+        height: 40px;
+      }
+
+      .add_member_btn {
+        min-width: 100px;
+        height: 40px;
+        background-color: transparent;
+        border: 1px solid black;
+        border-radius: 5px;
+        float: right;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      #addmember_toggle_btn {
+        border: none;
+        border-radius: 10px;
+        padding: 10px 15px;
+        background-color: #db3545;
+        color: white;
+      }
+
+      /* 유저 등록 부분 CSS - 끝 */
+      /* 멤버 카드 부분 CSS 시작 */
+      .mycards {
+        padding: 25px;
+      }
+
+      .card {
+        background-color: #fff;
+        border-radius: 15px;
+        /* 둥근 모서리 */
+        overflow: hidden;
+        /* 사진이 카드 밖으로 나가지 않도록 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* 카드 그림자 */
+        transition: transform 0.2s ease-in-out;
+        /* 카드 hover 효과 */
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        /* 카드 hover 시 살짝 위로 올라가게 */
+      }
+
+      .card img {
+        width: 100%;
+        height: 300px;
+      }
+
+      .card-body h5 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-top: 10px;
+      }
+
+      .card-body p {
+        font-size: 14px;
+
+        color: #777;
+      }
+
+      /* 멤버 카드 부분 CSS 끝 */
+      /* 방명록 부분 CSS */
+      .guestBook {
+        width: 1000px;
+        margin: 50px auto 50px auto;
+      }
 
       .navbar > .container {
         max-width: auto;
@@ -197,8 +229,8 @@
     <!-- FireBase 연동 및 기능 넣는 구간 -->
     <script type="module">
       /* 파이어베이스 시작점 */
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-      import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       import {
         collection,
         query,
@@ -208,34 +240,56 @@
         getDoc,
         setDoc,
         doc,
-      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       import {
         getStorage,
         ref,
         uploadBytes,
         getDownloadURL,
-      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 
       const firebaseConfig = {
-        apiKey: 'AIzaSyBi68Bib9QK92ATsOSiYZ0rdvz2kMwXi88',
-        authDomain: 'onboarding-project-6b59e.firebaseapp.com',
-        projectId: 'onboarding-project-6b59e',
-        storageBucket: 'onboarding-project-6b59e.firebasestorage.app',
-        messagingSenderId: '654347061607',
-        appId: '1:654347061607:web:3c6f4e1e4c880db463c7c2',
+        apiKey: "AIzaSyBi68Bib9QK92ATsOSiYZ0rdvz2kMwXi88",
+        authDomain: "onboarding-project-6b59e.firebaseapp.com",
+        projectId: "onboarding-project-6b59e",
+        storageBucket: "onboarding-project-6b59e.firebasestorage.app",
+        messagingSenderId: "654347061607",
+        appId: "1:654347061607:web:3c6f4e1e4c880db463c7c2",
       };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-    /* 파이어베이스 끝 */
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+      /* 파이어베이스 끝 */
 
       /* 여기부터 작성하시면 됩니다!! */
+
+      /* 해당 위치로 스크롤 이벤트 */
+      $(document).ready(() => {
+        const scrollBoxes = [
+          ".scroll_action_01",
+          ".scroll_action_02",
+          ".scroll_action_03",
+          ".scroll_action_04",
+        ];
+
+        $(".scroll_btn").on("click", function () {
+          const targetIdx = $(this).index();
+          const top = $(scrollBoxes[targetIdx]).offset().top - 100;
+
+          window.scrollTo({ top, behavior: "smooth" });
+        });
+
+        $("#addmember_toggle_btn").click(async function () {
+          $("#postingbox").toggle();
+        });
+      });
+
       /* 멤버 등록 로직 - 시작 (전지호) */
       let selectedFile = null;
-      let downloadURL = '';
+      let downloadURL = "";
 
-      $('#photoUrl').on('change', async (event) => {
+      $("#photoUrl").on("change", async (event) => {
         const fileInput = event.target;
         const file = fileInput.files[0];
         selectedFile = file;
@@ -244,82 +298,79 @@
           // 로컬 사진 blob src에 등록
           const blobUrl = URL.createObjectURL(file);
           downloadURL = blobUrl;
-          $('#photo').attr('src', blobUrl).show();
-          $('#photoLabel').hide();
+          $("#photo").attr("src", blobUrl).show();
+          $("#photoLabel").hide();
         } else {
-          $('#photo').hide();
+          $("#photo").hide();
         }
       });
 
-      $('#add_member_submit').on('click', async (event) => {
+      $("#add_member_submit").on("click", async (event) => {
         event.preventDefault();
 
         let isLoading = true;
         if (isLoading) {
-          $('#add_member_submit').html('멤버 등록중!!!');
-          $('#add_member_submit').attr('disabled', true);
+          $("#add_member_submit").html("멤버 등록중!!!");
+          $("#add_member_submit").attr("disabled", true);
         }
 
-        const member_id = $('#member_id').val();
-        const name = $('#name').val();
-        const content = $('#content').val().replace(/(\n)/g, '<br>');
+        const member_id = $("#member_id").val();
+        const name = $("#name").val();
+        const content = $("#content").val().replace(/(\n)/g, "<br>");
 
         if (!selectedFile) {
-          alert('프로필 사진을 등록해주세요!');
+          alert("프로필 사진을 등록해주세요!");
           return;
         }
 
         try {
           // 유저 중복 검사
-          const memberDocRef = doc(db, 'members', member_id);
+          const memberDocRef = doc(db, "members", member_id);
           const memberDoc = await getDoc(memberDocRef);
           const memberData = memberDoc.data();
 
           if (memberData) {
-            alert('이미 등록된 아이디입니다.');
+            alert("이미 등록된 아이디입니다.");
             return;
           }
 
-        // storage 경로에 사진 업로드
-        const storageRefPath = `profile_pictures/${member_id}/profile.png`;
-        const storageRef = ref(storage, storageRefPath);
+          // storage 경로에 사진 업로드
+          const storageRefPath = `profile_pictures/${member_id}/profile.png`;
+          const storageRef = ref(storage, storageRefPath);
 
-        await uploadBytes(storageRef, selectedFile);
-        const downloadURL = await getDownloadURL(storageRef);
+          await uploadBytes(storageRef, selectedFile);
+          const downloadURL = await getDownloadURL(storageRef);
 
-        await setDoc(memberDocRef, {
-          member_id,
-          name,
-          content,
-          profile_url: downloadURL,
-          createdAt: new Date().toLocaleString(),
-        });
+          await setDoc(memberDocRef, {
+            member_id,
+            name,
+            content,
+            profile_url: downloadURL,
+            createdAt: new Date().toLocaleString(),
+          });
 
-          alert('멤버가 성공적으로 등록되었습니다.');
+          alert("멤버가 성공적으로 등록되었습니다.");
           window.location.reload();
         } catch (error) {
-          alert('멤버 정보 등록 중 오류가 발생했습니다.');
+          alert("멤버 정보 등록 중 오류가 발생했습니다.");
           console.error(error);
         }
       });
 
-    $("#photo").on("click", () => {
-      $("#photoUrl").click();
-    });
-    /* 멤버 등록 로직 - 끝 */
-    /* 카드 로직 시작 */
-    let docs = await getDocs(collection(db, "members"));
-    docs.forEach((doc) => {
-      let row = doc.data();
+      $("#photo").on("click", () => {
+        $("#photoUrl").click();
+      });
+      /* 멤버 등록 로직 - 끝 */
+      /* 카드 로직 시작 */
+      let docs = await getDocs(collection(db, "members"));
+      docs.forEach((doc) => {
+        let row = doc.data();
 
-      let id = row['member_id'];
-      let image = row['profile_url'];
-      let name = row['name'];
+        let id = row["member_id"];
+        let image = row["profile_url"];
+        let name = row["name"];
 
-      
-
-      
-      let temp_html = ` 
+        let temp_html = ` 
             <div class="col">
                 <div class="card h-100" id="${id}">
                     <img src="${image}"
@@ -329,34 +380,34 @@
                     </div>
                 </div>
             </div>`;
-      $('#card').append(temp_html);
+        $("#card").append(temp_html);
 
-      $(`#${id}`).on('click', function(){
-        window.location.href = "./"+id+".html";
-      })
-    });
+        $(`#${id}`).on("click", function () {
+          window.location.href = "./" + id + ".html";
+        });
+      });
 
-    $('#card').on('click', '',)
-    /* 카드 로직 종료 */
-    /* 방명록 등록 로직 */
+      $("#card").on("click", "");
+      /* 카드 로직 종료 */
+      /* 방명록 등록 로직 */
 
-    $(document).ready(function () {
-      eventListener();
-      getAllGstBook();
-    });
+      $(document).ready(function () {
+        eventListener();
+        getAllGstBook();
+      });
 
       //이벤트 등록
       const eventListener = () => {
         //등록 버튼이벤트
-        $('#addGstBookBtn').on('click', () => {
-          let text = $('#gstbook_text').val();
-          let username = $('#gstbook_username').val();
+        $("#addGstBookBtn").on("click", () => {
+          let text = $("#gstbook_text").val();
+          let username = $("#gstbook_username").val();
           addGstBook({ text, username });
         });
       };
       //방명록 추가
       const addGstBook = async (data) => {
-        let gstBookDoc = await addDoc(collection(db, 'gst_book'), {
+        let gstBookDoc = await addDoc(collection(db, "gst_book"), {
           text: data.text,
           username: data.username,
           create_dt: Date.now(),
@@ -367,9 +418,9 @@
 
       //방명록 목록 가져오기
       const getAllGstBook = async () => {
-        let allDocs = await getDocs(collection(db, 'gst_book'));
+        let allDocs = await getDocs(collection(db, "gst_book"));
         let res = [];
-        let html = '';
+        let html = "";
 
         allDocs.docs.map((doc) => {
           res = [
@@ -396,11 +447,11 @@
         //   ];
         // });
 
-      //생성일 기준 내림차순순
-      res.sort((a, b) => b.create_dt - a.create_dt);
+        //생성일 기준 내림차순순
+        res.sort((a, b) => b.create_dt - a.create_dt);
 
         //돔조작
-        $('.gstbook_list').empty();
+        $(".gstbook_list").empty();
         res.forEach((data) => {
           html =
             html +
@@ -408,7 +459,7 @@
               data.id
             }" class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
         <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${
-          data.username || '익명'
+          data.username || "익명"
         }</div>
         <div style='color: #555; font-size: 14px; line-height: 1.5;'>${
           data.text
@@ -418,41 +469,15 @@
         ).toLocaleString()}</div>
       </div>`;
         });
-        $('.gstbook_list').append(html);
+        $(".gstbook_list").append(html);
       };
 
-      $('#btn').click(async function () {
-        $('#postingbox').toggle();
-      });
       /* 방명록 등록 로직 */
     </script>
   </head>
   <body>
     <div>
-      <header data-bs-theme="dark">
-        <div class="collapse text-bg-dark" id="navbarHeader">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-8 col-md-7 py-4">
-                <h4>About</h4>
-                <p class="text-body-secondary">
-                  Add some information about the album below, the author, or any
-                  other background context. Make it a few sentences long so
-                  folks can pick up some informative tidbits. Then, link them
-                  off to some social networking sites or contact information.
-                </p>
-              </div>
-              <div class="col-sm-4 offset-md-1 py-4">
-                <h4>Contact</h4>
-                <ul class="list-unstyled">
-                  <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                  <li><a href="#" class="text-white">Like on Facebook</a></li>
-                  <li><a href="#" class="text-white">Email me</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <header class="header_sticky" data-bs-theme="dark">
         <div class="navbar navbar-dark bg-danger shadow-sm">
           <div class="container">
             <a href="#" class="navbar-brand d-flex align-items-center">
@@ -478,121 +503,149 @@
             </a>
           </div>
         </div>
-      </header>
-      <div
-        class="btn-group"
-        role="group"
-        aria-label="Basic mixed styles example"
-      >
-        <button type="button" class="btn btn-primary">팀소개</button>
-        <button id="btn" type="button" class="btn btn-warning">팀원등록</button>
-        <button type="button" class="btn btn-success">팀원카드</button>
-        <button type="button" class="btn btn-info">방명록</button>
-      </div>
-
-      <div class="intro">
         <div
-          class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
+          class="btn-group"
+          role="group"
+          aria-label="Basic mixed styles example"
         >
-          <div class="col-lg-6 px-0">
-            <h1 style="color: brown" class="display-4 fst-italic">
-              Who are we?
-            </h1>
-            <p class="lead my-3">
-              “언젠간되겠지”팀은 희망과 긍정의 에너지를 무기로 삼고 우리는 당장
-              해결되지 않아도, 끝이 보이지 않아도, 결국엔 해내고야 마는
-              팀입니다. 끈기와 유머로 무장한 우리는 어떤 난관 앞에서도 웃음을
-              잃지 않습니다. 실패는 단지 과정일 뿐이며, 성공은 반드시 찾아온다고
-              믿습니다.
-            </p>
-            <h3 style="color: red">언젠간 우리도 큰일 낼 수 있어! :)</h3>
+          <button type="button" class="scroll_btn btn btn-primary">
+            팀소개
+          </button>
+          <button type="button" class="scroll_btn btn btn-warning">
+            팀원등록
+          </button>
+          <button type="button" class="scroll_btn btn btn-success">
+            팀원카드
+          </button>
+          <button type="button" class="scroll_btn btn btn-info">방명록</button>
+        </div>
+      </header>
+
+      <div class="content_container">
+        <div class="scroll_action_01 intro">
+          <div
+            class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
+          >
+            <div class="col-lg-6 px-0">
+              <h1 style="color: brown" class="display-4 fst-italic">
+                Who are we?
+              </h1>
+              <p class="lead my-3">
+                “언젠간되겠지”팀은 희망과 긍정의 에너지를 무기로 삼고 우리는
+                당장 해결되지 않아도, 끝이 보이지 않아도, 결국엔 해내고야 마는
+                팀입니다. 끈기와 유머로 무장한 우리는 어떤 난관 앞에서도 웃음을
+                잃지 않습니다. 실패는 단지 과정일 뿐이며, 성공은 반드시
+                찾아온다고 믿습니다.
+              </p>
+              <h3 style="color: red">언젠간 우리도 큰일 낼 수 있어! :)</h3>
+              <button id="addmember_toggle_btn">멤버 등록하기</button>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 시작 -->
+        <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 시작 -->
 
-      <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
-      <div class="add_member_wraper" id="postingbox">
-        <form>
-          <div class="add_member_top_inner">
-            <div class="add_member_photo_wrapper">
-              <div class="add_member_label">프로필 사진</div>
-              <label
-                id="photoLabel"
-                class="add_member_photo_label"
-                for="photoUrl"
-                required
-              >
-                눌러서 사진 업로드
-              </label>
-              <input id="photoUrl" type="file" accept="image/*" hidden />
-              <img id="photo" src="#" class="add_member_photo" />
-            </div>
-            <div class="add_member_info_wrapper">
-              <div>
-                <label class="add_member_label" for="member_id">아이디</label>
-                <input
-                  id="member_id"
-                  type="text"
-                  placeholder="아이디를 입력해주세요."
-                  class="add_member_input"
-                  required
-                />
+        <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
+        <div class="scroll_action_02">
+          <div class="add_member_wraper" id="postingbox">
+            <form>
+              <div class="add_member_top_inner">
+                <div class="add_member_photo_wrapper">
+                  <div class="add_member_label">프로필 사진</div>
+                  <label
+                    id="photoLabel"
+                    class="add_member_photo_label"
+                    for="photoUrl"
+                    required
+                  >
+                    눌러서 사진 업로드
+                  </label>
+                  <input id="photoUrl" type="file" accept="image/*" hidden />
+                  <img id="photo" src="#" class="add_member_photo" />
+                </div>
+                <div class="add_member_info_wrapper">
+                  <div>
+                    <label class="add_member_label" for="member_id"
+                      >아이디</label
+                    >
+                    <input
+                      id="member_id"
+                      type="text"
+                      placeholder="아이디를 입력해주세요."
+                      class="add_member_input"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label class="add_member_label" for="name">이름</label>
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="이름을 입력해주세요."
+                      class="add_member_input"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
 
-            <div>
-              <label class="add_member_label" for="name">이름</label>
-              <input id="name" type="text" placeholder="이름을 입력해주세요." class="add_member_input" required />
+              <div>
+                <div class="add_member_label">소개글</div>
+                <textarea
+                  id="content"
+                  placeholder="소개글을 입력해주세요."
+                  class="add_member_textarea"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="add_member_btn_wrapper">
+                <button id="add_member_submit" class="add_member_btn">
+                  기록하기
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- 신규 멤버 등록 HTML - 끝 -->
+
+        <!-- 멤버 카드 시작-->
+        <div class="scroll_action_03 mycards">
+          <div class="row row-cols-1 row-cols-md-4 g-4" id="card"></div>
+        </div>
+        <!-- 멤버 카드 끝-->
+
+        <div class="scroll_action_04 guestBook">
+          <div class="mt-2 p-5 bg-gray rounded">
+            <h2 class="fs-6">방명록 남기기</h2>
+            <input
+              type="text"
+              class="form-control"
+              id="gstbook_username"
+              style="
+                margin-bottom: 7px;
+                border-radius: 4px;
+                border: 1px solid #ced4da;
+                width: 80px;
+                padding: 6px 12px 6px 12px;
+              "
+              placeholder="작성자"
+            />
+            <input
+              class="form-control"
+              type="text"
+              style="height: 70px"
+              id="gstbook_text"
+              placeholder="내용"
+            />
+            <div class="d-flex mt-2 justify-content-end">
+              <button class="btn btn-primary" id="addGstBookBtn">등록</button>
             </div>
+            <div class="gstbook_list"></div>
           </div>
         </div>
-
-        <div>
-          <div class="add_member_label">소개글</div>
-          <textarea id="content" placeholder="소개글을 입력해주세요." class="add_member_textarea" required></textarea>
-        </div>
-
-        <div class="add_member_btn_wrapper">
-          <button id="add_member_submit" class="add_member_btn">
-            기록하기
-          </button>
-        </div>
-      </form>
-    </div>
-    <!-- 신규 멤버 등록 HTML - 끝 -->
-    <!-- 멤버 카드 시작-->
-    <div class="mycards">
-      <div class="row row-cols-1 row-cols-md-4 g-4" id="card">
-
+        <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 끝 -->
       </div>
-    </div>
-    <!-- 멤버 카드 끝-->
-    <div class="guestBook">
-      <div class="mt-2 p-5 bg-gray rounded">
-        <h2 class="fs-6">방명록 남기기</h2>
-        <input type="text" class="form-control" id="gstbook_username" style="
-              margin-bottom: 7px;
-              border-radius: 4px;
-              border: 1px solid #ced4da;
-              width: 80px;
-              padding: 6px 12px 6px 12px;
-            "
-            placeholder="작성자"
-          />
-          <input
-            class="form-control"
-            type="text"
-            style="height: 70px"
-            id="gstbook_text"
-            placeholder="내용"
-          />
-          <div class="d-flex mt-2 justify-content-end">
-            <button class="btn btn-primary" id="addGstBookBtn">등록</button>
-          </div>
-          <div class="gstbook_list"></div>
-        </div>
-      </div>
-      <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 끝 -->
     </div>
 
     <div class="container">
