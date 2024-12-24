@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+}
+
+.main {
+    display: flex;
+    height: 100%;
+}
+
+.leftBox {
+    flex: 2;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: wheat;
+}
+
+.leftBox a {
+    display: inline-block;
+}
+
+.rightBox {
+    flex: 8;
+    background-color: black;
+    padding: 20px;
+    height: 100%;
+    color: white;
+    overflow-y: auto; /* 스크롤 활성화 */
+}
+
+.profile {
+    width: 350px;
+    height: 350px;
+    background-image: url('https://avatars.githubusercontent.com/u/114672829?s=400&u=1db2dedef702fcd29cc38dbe99d86f0c61a45cfc&v=4');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: -300px;
+}
+
+.icons {
+    display: flex;
+    margin-top: 10px;
+    gap: 50px;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 40px;
+    color: #d0d0d0;
+    transition: color 0.3s ease;
+}
+
+.icon:hover {
+    color: #0073e6;
+}
+/* 카드 스타일 */
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 20px; /* 카드 간격 */
+    margin-right: 10px;
+    margin-top: 10px;
+    transition: transform 0.3s ease;
+    width: 400px; /* 카드 너비 고정 */
+    height: 350px; /* 카드 높이 고정 */
+    overflow: hidden;
+}
+.flex {
+    display: flex;
+}
+.card:hover {
+    transform: translateY(-10px); /* 카드 호버 시 살짝 올라가는 효과 */
+}
+
+/* 이미지 스타일 (상단 70%) */
+.card-image {
+    width: 100%;
+    height: 70%; /* 이미지 높이 */
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지를 박스에 맞게 자르기 */
+}
+
+/* 설명 스타일 (하단 30%) */
+.card-description {
+    padding-top: 10px;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.tag{
+    background-color: #ccc;
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+.mt-5{
+    margin-top: 5px;
+}
+
+.me{
+    padding: 10px;
+}
