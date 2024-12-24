@@ -138,8 +138,8 @@
     <!-- FireBase 연동 및 기능 넣는 구간 -->
     <script type="module">
       /* 파이어베이스 시작점 */
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-      import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       import {
         collection,
         query,
@@ -149,21 +149,21 @@
         getDoc,
         setDoc,
         doc,
-      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       import {
         getStorage,
         ref,
         uploadBytes,
         getDownloadURL,
-      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 
       const firebaseConfig = {
-        apiKey: 'AIzaSyBi68Bib9QK92ATsOSiYZ0rdvz2kMwXi88',
-        authDomain: 'onboarding-project-6b59e.firebaseapp.com',
-        projectId: 'onboarding-project-6b59e',
-        storageBucket: 'onboarding-project-6b59e.firebasestorage.app',
-        messagingSenderId: '654347061607',
-        appId: '1:654347061607:web:3c6f4e1e4c880db463c7c2',
+        apiKey: "AIzaSyBi68Bib9QK92ATsOSiYZ0rdvz2kMwXi88",
+        authDomain: "onboarding-project-6b59e.firebaseapp.com",
+        projectId: "onboarding-project-6b59e",
+        storageBucket: "onboarding-project-6b59e.firebasestorage.app",
+        messagingSenderId: "654347061607",
+        appId: "1:654347061607:web:3c6f4e1e4c880db463c7c2",
       };
 
       const app = initializeApp(firebaseConfig);
@@ -174,9 +174,9 @@
       /* 여기부터 작성하시면 됩니다!! */
       /* 멤버 등록 로직 - 시작 (전지호) */
       let selectedFile = null;
-      let downloadURL = '';
+      let downloadURL = "";
 
-      $('#photoUrl').on('change', async (event) => {
+      $("#photoUrl").on("change", async (event) => {
         const fileInput = event.target;
         const file = fileInput.files[0];
         selectedFile = file;
@@ -185,39 +185,39 @@
           // 로컬 사진 blob src에 등록
           const blobUrl = URL.createObjectURL(file);
           downloadURL = blobUrl;
-          $('#photo').attr('src', blobUrl).show();
-          $('#photoLabel').hide();
+          $("#photo").attr("src", blobUrl).show();
+          $("#photoLabel").hide();
         } else {
-          $('#photo').hide();
+          $("#photo").hide();
         }
       });
 
-      $('#add_member_submit').on('click', async (event) => {
+      $("#add_member_submit").on("click", async (event) => {
         event.preventDefault();
 
         let isLoading = true;
         if (isLoading) {
-          $('#add_member_submit').html('멤버 등록중!!!');
-          $('#add_member_submit').attr('disabled', true);
+          $("#add_member_submit").html("멤버 등록중!!!");
+          $("#add_member_submit").attr("disabled", true);
         }
 
-        const member_id = $('#member_id').val();
-        const name = $('#name').val();
-        const content = $('#content').val().replace(/(\n)/g, '<br>');
+        const member_id = $("#member_id").val();
+        const name = $("#name").val();
+        const content = $("#content").val().replace(/(\n)/g, "<br>");
 
         if (!selectedFile) {
-          alert('프로필 사진을 등록해주세요!');
+          alert("프로필 사진을 등록해주세요!");
           return;
         }
 
         try {
           // 유저 중복 검사
-          const memberDocRef = doc(db, 'members', member_id);
+          const memberDocRef = doc(db, "members", member_id);
           const memberDoc = await getDoc(memberDocRef);
           const memberData = memberDoc.data();
 
           if (memberData) {
-            alert('이미 등록된 아이디입니다.');
+            alert("이미 등록된 아이디입니다.");
             return;
           }
 
@@ -236,16 +236,16 @@
             createdAt: new Date().toLocaleString(),
           });
 
-          alert('멤버가 성공적으로 등록되었습니다.');
+          alert("멤버가 성공적으로 등록되었습니다.");
           window.location.reload();
         } catch (error) {
-          alert('멤버 정보 등록 중 오류가 발생했습니다.');
+          alert("멤버 정보 등록 중 오류가 발생했습니다.");
           console.error(error);
         }
       });
 
-      $('#photo').on('click', () => {
-        $('#photoUrl').click();
+      $("#photo").on("click", () => {
+        $("#photoUrl").click();
       });
       /* 멤버 등록 로직 - 끝 */
 
@@ -259,15 +259,15 @@
       //이벤트 등록
       const eventListener = () => {
         //등록 버튼이벤트
-        $('#addGstBookBtn').on('click', () => {
-          let text = $('#gstbook_text').val();
-          let username = $('#gstbook_username').val();
+        $("#addGstBookBtn").on("click", () => {
+          let text = $("#gstbook_text").val();
+          let username = $("#gstbook_username").val();
           addGstBook({ text, username });
         });
       };
       //방명록 추가
       const addGstBook = async (data) => {
-        let gstBookDoc = await addDoc(collection(db, 'gst_book'), {
+        let gstBookDoc = await addDoc(collection(db, "gst_book"), {
           text: data.text,
           username: data.username,
           create_dt: Date.now(),
@@ -277,9 +277,9 @@
 
       //방명록 목록 가져오기
       const getAllGstBook = async () => {
-        let allDocs = await getDocs(collection(db, 'gst_book'));
+        let allDocs = await getDocs(collection(db, "gst_book"));
         let res = [];
-        let html = '';
+        let html = "";
 
         //allDocs to res mapper
         allDocs.forEach((doc) => {
@@ -298,13 +298,13 @@
         res.sort((a, b) => b.create_dt - a.create_dt);
 
         //돔조작
-        $('.gstbook_list').empty();
+        $(".gstbook_list").empty();
         res.forEach((data) => {
           html =
             html +
             `<div class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
       <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${
-        data.username || '익명'
+        data.username || "익명"
       }</div>
       <div style='color: #555; font-size: 14px; line-height: 1.5;'>${
         data.text
@@ -314,7 +314,7 @@
       ).toLocaleString()}</div>
     </div>`;
         });
-        $('.gstbook_list').append(html);
+        $(".gstbook_list").append(html);
       };
 
       /* 방명록 등록 로직 */
