@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>언젠간되겠지 소개 페이지</title>
+    <title>언젠간되겠지 조예인 소개 페이지(개인)</title>
 
     <!-- jQuery Script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -102,7 +102,7 @@
 
       .add_member_textarea {
         width: 100%;
-        min-height: 150px; 
+        min-height: 150px;
         resize: none;
 
         padding: 5px 10px;
@@ -126,6 +126,9 @@
         }
       }
       /* 유저 등록 부분 CSS - 끝 */
+      .showName {
+        height: 350px;
+      }
     </style>
 
     <!-- FireBase 연동 및 기능 넣는 구간 -->
@@ -196,7 +199,7 @@
 
         const member_id = $("#member_id").val();
         const name = $("#name").val();
-        const content = $("#content").val().replace(/(\n)/g, "<br>");
+        const content = $("#content").val();
 
         if (!selectedFile) {
           alert("프로필 사진을 등록해주세요!");
@@ -241,142 +244,80 @@
         $("#photoUrl").click();
       });
       /* 멤버 등록 로직 - 끝 */
-
-      /* 방명록 등록 로직 */
-
-      $(document).ready(function(){
-        eventListener();
-        getAllGstBook();
-      });
-
-      //이벤트 등록
-      const eventListener = () =>{
-        //등록 버튼이벤트
-        $("#addGstBookBtn").on('click',()=>{
-          let text =  $("#gstbook_text").val()
-          let username = $("#gstbook_username").val();
-          addGstBook({text,username});
-        })
-      }
-      //방명록 추가
-      const addGstBook = async (data) =>{
-        let gstBookDoc =await addDoc(collection(db, "gst_book"),{text : data.text, username : data.username, create_dt : Date.now()})
-        getAllGstBook()
-      }
-
-      //방명록 목록 가져오기
-      const getAllGstBook = async () =>{
-        let allDocs =  await getDocs(collection(db,"gst_book"))
-        let res = []
-        let html = '';
-
-        //allDocs to res mapper
-        allDocs.forEach(doc => {
-          let data = doc.data()
-          res = [...res,{text : data.text, username : data.username, create_dt : data.create_dt}]
-        })
-
-        //생성일 기준 내림차순순
-        res.sort((a,b) => b.create_dt - a.create_dt)
-
-        //돔조작
-        $('.gstbook_list').empty()
-        res.forEach(data =>{
-          html = html + `<div class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
-      <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${data.username || '익명'}</div>
-      <div style='color: #555; font-size: 14px; line-height: 1.5;'>${data.text}</div>
-      <div style='font-size: 12px; color: #999; margin-top: 5px;'>${new Date(data.create_dt).toLocaleString()}</div>
-    </div>`
-        })
-        $('.gstbook_list').append(html)
-      }
-    
-    
-      /* 방명록 등록 로직 */
     </script>
   </head>
   <body>
-    <div>
-      <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 시작 -->
-
-      <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
-      <div class="add_member_wraper">
-        <form>
-          <div class="add_member_top_inner">
-            <div class="add_member_photo_wrapper">
-              <div class="add_member_label">프로필 사진</div>
-              <label
-                id="photoLabel"
-                class="add_member_photo_label"
-                for="photoUrl"
-                required
-              >
-                눌러서 사진 업로드
-              </label>
-              <input id="photoUrl" type="file" accept="image/*" hidden />
-              <img id="photo" src="#" class="add_member_photo" />
-            </div>
-            <div class="add_member_info_wrapper">
-              <div>
-                <label class="add_member_label" for="member_id">아이디</label>
-                <input
-                  id="member_id"
-                  type="text"
-                  placeholder="아이디를 입력해주세요."
-                  class="add_member_input"
-                  required
-                />
-              </div>
-
-              <div>
-                <label class="add_member_label" for="name">이름</label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="이름을 입력해주세요."
-                  class="add_member_input"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-
+    <div class="showName">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+      <div class="col-md-6 p-lg-5 mx-auto my-5">
+        <h1 class="display-3 fw-bold">조예인</h1>
+        <h3 class="fw-normal text-muted mb-3">끊임없이 도전하는 Dreamer!</h3>
+      </div>
+      <div class="product-device shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+  </div>
+    <div class="container px-4 py-5" id="icon-grid">
+      <h2 class="pb-2 border-bottom">Icon grid</h2>
+  
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"></use></svg>
           <div>
-            <div class="add_member_label">소개글</div>
-            <textarea
-              id="content"
-              placeholder="소개글을 입력해주세요."
-              class="add_member_textarea"
-              required
-            ></textarea>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
           </div>
-
-          <div class="add_member_btn_wrapper">
-            <button id="add_member_submit" class="add_member_btn">
-              기록하기
-            </button>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
           </div>
-        </form>
-      </div>
-      <!-- 신규 멤버 등록 HTML - 끝 -->
-      <div class="guestBook">
-        <div class="mt-2 p-5 bg-gray rounded">
-          <h2 class="fs-6">방명록 남기기</h2>
-          <input type="text" 
-                class = "form-control"
-                id="gstbook_username"
-                style="margin-bottom: 7px; 
-                      border-radius: 4px; 
-                      border : 1px solid #ced4da; 
-                      width: 80px; padding: 6px 12px 6px 12px;" 
-                placeholder="작성자">
-          <input class="form-control" type="text" style="height: 70px; "id="gstbook_text" placeholder="내용">
-          <div class="d-flex mt-2 justify-content-end">
-              <button class="btn btn-primary" id = 'addGstBookBtn'>등록</button>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
           </div>
-          <div class ="gstbook_list"></div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading.</p>
+          </div>
+        </div>
       </div>
-      </div>
-      <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 끝 -->
+    </div>
   </body>
 </html>
