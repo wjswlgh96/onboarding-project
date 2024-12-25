@@ -173,7 +173,7 @@
         const storage = getStorage(app);
         /* 파이어베이스 끝 */
   
-        /* 방명록 등록 로직 */
+        /* 방명록 로직 */
         $(document).ready(function () {
           eventListener();
           getAllGstBook();
@@ -188,6 +188,13 @@
             let password = $("#gstbook_pw").val();
             addGstBook({ text, username, password });
           });
+          //방명록 삭제 이벤트 등록록
+          $(".gstbook_list").on('click', '.deleteBtn', async function() {
+                const guestId = $(this).data('id');  // 버튼 ID에서 guestId 추출
+                const pass = $(this).data('password')
+                //console.log(guestId)
+                deleteGstBook(guestId,pass)
+          });
         };
         //방명록 추가
         const addGstBook = async (data) => {
@@ -200,6 +207,31 @@
   
           getAllGstBook();
         };
+        //방명록 삭제
+        const deleteGstBook = async (docId,pwd) =>{
+          if (!docId) {
+              alert('삭제할 문서를 찾을 수 없습니다.');
+              return;
+          }
+          try {
+          // Firestore에서 문서 참조 생성 및 삭제
+          let gstBookDocId = doc(db, "gst_book", docId);
+          //console.log("삭제할 문서 ID:", gstBookDocId);
+          
+          let getpass = prompt("비밀번호를 입력하세요.");
+
+          if(pwd==getpass){
+            await deleteDoc(gstBookDocId);
+            alert("방명록이 성공적으로 삭제되었습니다.");
+            window.location.reload();
+          } else {
+            alert("비밀번호가 다릅니다.");
+          }
+          } catch (error) {
+          console.error("방명록 삭제 중 오류 발생:", error);
+          alert("방명록 삭제에 실패했습니다.");
+          }
+        }
   
         //방명록 목록 가져오기
         const getAllGstBook = async () => {
@@ -216,71 +248,26 @@
               },
             ];
           });
-  
-          /* 수정, 삭제를 위한 엘리먼트에 id 넣었습니다. */
-          //allDocs to res mapper
-          // allDocs.forEach((doc) => {
-          //   let data = doc.data();
-  
-          //   res = [
-          //     ...res,
-          //     {
-          //       text: data.text,
-          //       username: data.username,
-          //       create_dt: data.create_dt,
-          //     },
-          //   ];
-          // });
-  
+
           //생성일 기준 내림차순순
           res.sort((a, b) => b.create_dt - a.create_dt);
   
-          //돔조작
-          $(".gstbook_list").empty();
+          //방명록 리스트 추가
           res.forEach((data) => {
-            html =
+            html = html + 
               `<div id="${data.id}" class='pd-3' style='margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;'>
           <div style='font-weight: bold; color: #333; margin-bottom: 5px;'>${data.username || "익명"}</div>
           <div style='color: #555; font-size: 14px; line-height: 1.5;'>${data.text}</div>
           <div style='font-size: 12px; color: #999; margin-top: 5px;'>${new Date(data.create_dt).toLocaleString()}</div>
-          <button id="deleteBtn_${data.id}" type="button" class="btn btn-outline-danger">삭제</button>
+          <button data-id=${data.id} data-password =${data.password} type="button" class="btn btn-outline-danger deleteBtn">삭제</button>
         </div>`;
-            $(".gstbook_list").append(html);
-            $('#deleteBtn_'+data.id).on('click', async () => {
-                let guestId = data.id;
-                console.log(guestId)
-                if (!guestId) {
-                    alert('삭제할 문서를 찾을 수 없습니다.');
-                    return;
-                }
-
-                try {
-                // Firestore에서 문서 참조 생성 및 삭제
-                let gstBookDocId = doc(db, "gst_book", guestId);
-                console.log("삭제할 문서 ID:", gstBookDocId);
-                
-                let getpass = prompt("비밀번호를 입력하세요.");
-
-                if(data.password==getpass){
-                  await deleteDoc(gstBookDocId);
-                  alert("방명록이 성공적으로 삭제되었습니다.");
-                  window.location.reload();
-                } else {
-                  alert("비밀번호가 다릅니다.");
-                }
-                } catch (error) {
-                console.error("방명록 삭제 중 오류 발생:", error);
-                alert("방명록 삭제에 실패했습니다.");
-                }
-            });
           });
-          
-
-        
+          $(".gstbook_list").empty();
+          $(".gstbook_list").append(html);
     };
     
         
-      /* 방명록 등록 로직 -끝 */
+      /* 방명록 로직 -끝 */
     </script>
   </head>
   <body>
