@@ -45,6 +45,10 @@
         margin-left: 55px;
       }
 
+      #add_member_header_btn {
+        display: none;
+      }
+
       .scroll_action_02 {
         padding: 50px 0;
       }
@@ -172,6 +176,7 @@
       }
 
       /* 유저 등록 부분 CSS - 끝 */
+
       /* 멤버 카드 부분 CSS 시작 */
       .mycards {
         padding: 25px;
@@ -192,6 +197,7 @@
       .card:hover {
         transform: translateY(-10px);
         /* 카드 hover 시 살짝 위로 올라가게 */
+        cursor: pointer;
       }
 
       .card img {
@@ -281,7 +287,8 @@
         });
 
         $("#addmember_toggle_btn").click(async function () {
-          $("#postingbox").toggle();
+          $("#add_member_box").toggle();
+          $("#add_member_header_btn").toggle();
         });
       });
 
@@ -305,20 +312,22 @@
         }
       });
 
+      const changedAddMemberSubmit = (text, disabled) => {
+        $("#add_member_submit").html(text);
+        $("#add_member_submit").attr("disabled", disabled);
+      };
+
       $("#add_member_submit").on("click", async (event) => {
         event.preventDefault();
 
-        let isLoading = true;
-        if (isLoading) {
-          $("#add_member_submit").html("멤버 등록중!!!");
-          $("#add_member_submit").attr("disabled", true);
-        }
+        changedAddMemberSubmit("멤버 등록중!!!", true);
 
         const member_id = $("#member_id").val();
         const name = $("#name").val();
         const content = $("#content").val().replace(/(\n)/g, "<br>");
 
         if (!selectedFile) {
+          changedAddMemberSubmit("기록하기", false);
           alert("프로필 사진을 등록해주세요!");
           return;
         }
@@ -330,6 +339,7 @@
           const memberData = memberDoc.data();
 
           if (memberData) {
+            changedAddMemberSubmit("기록하기", false);
             alert("이미 등록된 아이디입니다.");
             return;
           }
@@ -352,6 +362,7 @@
           alert("멤버가 성공적으로 등록되었습니다.");
           window.location.reload();
         } catch (error) {
+          changedAddMemberSubmit("기록하기", false);
           alert("멤버 정보 등록 중 오류가 발생했습니다.");
           console.error(error);
         }
@@ -511,7 +522,11 @@
           <button type="button" class="scroll_btn btn btn-primary">
             팀소개
           </button>
-          <button type="button" class="scroll_btn btn btn-warning">
+          <button
+            type="button"
+            id="add_member_header_btn"
+            class="scroll_btn btn btn-warning"
+          >
             팀원등록
           </button>
           <button type="button" class="scroll_btn btn btn-success">
@@ -546,7 +561,7 @@
 
         <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
         <div class="scroll_action_02">
-          <div class="add_member_wraper" id="postingbox">
+          <div id="add_member_box" class="add_member_wraper">
             <form>
               <div class="add_member_top_inner">
                 <div class="add_member_photo_wrapper">
