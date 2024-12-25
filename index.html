@@ -45,6 +45,10 @@
         margin-left: 55px;
       }
 
+      #add_member_header_btn {
+        display: none;
+      }
+
       .scroll_action_02 {
         padding: 50px 0;
       }
@@ -281,7 +285,8 @@
         });
 
         $("#addmember_toggle_btn").click(async function () {
-          $("#postingbox").toggle();
+          $("#add_member_box").toggle();
+          $("#add_member_header_btn").toggle();
         });
       });
 
@@ -515,7 +520,11 @@
           <button type="button" class="scroll_btn btn btn-primary">
             팀소개
           </button>
-          <button type="button" class="scroll_btn btn btn-warning">
+          <button
+            type="button"
+            id="add_member_header_btn"
+            class="scroll_btn btn btn-warning"
+          >
             팀원등록
           </button>
           <button type="button" class="scroll_btn btn btn-success">
@@ -550,7 +559,7 @@
 
         <!-- 신규 멤버 등록 HTML - 시작 (전지호) -->
         <div class="scroll_action_02">
-          <div class="add_member_wraper" id="postingbox">
+          <div id="add_member_box" class="add_member_wraper">
             <form>
               <div class="add_member_top_inner">
                 <div class="add_member_photo_wrapper">
