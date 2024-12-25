@@ -305,20 +305,22 @@
         }
       });
 
+      const changedAddMemberSubmit = (text, disabled) => {
+        $("#add_member_submit").html(text);
+        $("#add_member_submit").attr("disabled", disabled);
+      };
+
       $("#add_member_submit").on("click", async (event) => {
         event.preventDefault();
 
-        let isLoading = true;
-        if (isLoading) {
-          $("#add_member_submit").html("멤버 등록중!!!");
-          $("#add_member_submit").attr("disabled", true);
-        }
+        changedAddMemberSubmit("멤버 등록중!!!", true);
 
         const member_id = $("#member_id").val();
         const name = $("#name").val();
         const content = $("#content").val().replace(/(\n)/g, "<br>");
 
         if (!selectedFile) {
+          changedAddMemberSubmit("기록하기", false);
           alert("프로필 사진을 등록해주세요!");
           return;
         }
@@ -330,6 +332,7 @@
           const memberData = memberDoc.data();
 
           if (memberData) {
+            changedAddMemberSubmit("기록하기", false);
             alert("이미 등록된 아이디입니다.");
             return;
           }
@@ -352,6 +355,7 @@
           alert("멤버가 성공적으로 등록되었습니다.");
           window.location.reload();
         } catch (error) {
+          changedAddMemberSubmit("기록하기", false);
           alert("멤버 정보 등록 중 오류가 발생했습니다.");
           console.error(error);
         }
