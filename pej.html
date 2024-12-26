@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>박은지 소개 페이지</title>
+
+    <!-- jQuery Script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- BootStrap Script -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap');
+
+      .intro {
+        font-family: 'Black Han Sans', serif;
+
+        height: 240px;
+        width: 700px;
+        margin: 0px auto 0px auto;
+        padding-top: 20px;
+        padding-left: 10px;
+
+        background-image: url('https://us.123rf.com/450wm/jaxja/jaxja1406/jaxja140600018/29021658-%ED%95%98%EB%8A%98%EA%B3%BC-%EC%88%B2%EC%97%90-%EA%B5%AC%EB%A6%84.jpg');
+        background-position: center;
+        background-size: cover;
+      }
+
+      .card {
+        margin: 0px auto 0px auto;
+        height: 100px;
+        width: 700px;
+      }
+
+      .end {
+        margin: 0px auto 0px auto;
+        height: 100px;
+        width: 700px;
+        padding-top: 30px;
+      }
+    </style>
+
+    <script>
+      function openclose() {
+        $('#allcard').toggle();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="intro">
+      <h1>
+        안녕하세요.<br />
+        박은지입니다!<br />
+        <button onclick="openclose()" type="button" class="btn btn-warning">
+          CLICK
+        </button>
+      </h1>
+    </div>
+    
+    <div>
+      <!-- 개인 사진 삽입 -->
+    </div>
+
+    <div id="allcard">
+      <div class="card">
+        <div class="card-header">⭐MBTI</div>
+        <div class="card-body">
+          <p class="card-text">ISTJ</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          ⭐관심사</div>
+          <div class="card-body">
+            <p class="card-text">여행, 스페인어, 개발</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">⭐취미</div>
+          <div class="card-body">
+            <p class="card-text">자전거, 제빵</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">⭐한마디</div>
+          <div class="card-body">
+            <p class="card-text">
+              원래는 국제개발협력 NGO에서 일을 하다가 저만의 기술을 가지고
+              싶다는 생각에 개발자로 커리어 전환을 시도하게 되었습니다. 비전공자
+              노베이스지만 열심히 꾸준히 하다보면 우리 팀명처럼 언젠가 될 것이라고 생각합니다. 모두 파이팅입니다!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="end">
+      <hr />
+      <footer class="container">
+        <p class="float-end"><a href="#">Back to top</a></p>
+        <p>© 언젠간되겠지_박은지</p>
+      </footer>
+    </div>
+  </body>
+</html>
