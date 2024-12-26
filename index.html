@@ -496,6 +496,7 @@
 
       $("#gstbook_username").on('input', function () {
         if ($(this).hasClass('is-invalid')) {
+          $("#gstbook_username").css('width','90px')
           $("#gstbook_username").removeClass('is-invalid');
           $("#gstbook_username").next('.invalid-feedback').remove();
         }
@@ -503,6 +504,7 @@
 
       $("#gstbook_pw").on('input', function () {
         if ($(this).hasClass('is-invalid')) {
+          $("#gstbook_pw").css('width','90px')
           $("#gstbook_pw").removeClass('is-invalid');
           $("#gstbook_pw").next('.invalid-feedback').remove();
         }
@@ -515,6 +517,9 @@
       //부트스트랩 유효성검사 사용
       $(`#${id}`).addClass('is-invalid');
       $(`#${id}`).after(`<div class="invalid-feedback">${message}</div>`);
+      if(id == 'gstbook_pw' || id == 'gstbook_username'){
+        $(`#${id}`).css('width','120px')
+      }
       $(`#${id}`).focus();
     };
     //유효성(필수값) 체크
@@ -798,11 +803,14 @@
               " placeholder="작성자" />
           <input class="form-control" type="text" style="height: 70px" id="gstbook_text" placeholder="내용" />
           <div style="display: flex; justify-content: space-between;">
-            <input type="text" class="form-control" id="gstbook_pw" style="margin-bottom: 7px; 
-                    border-radius: 4px; 
-                    border : 1px solid #ced4da; 
-                    width: 90px; padding: 6px 12px 6px 12px;
-                    margin-top: 5px;" placeholder="비밀번호">
+            <div>
+              <input type="text" class="form-control" id="gstbook_pw" style="margin-bottom: 7px; 
+              border-radius: 4px; 
+              border : 1px solid #ced4da; 
+              width: 90px; padding: 6px 12px 6px 12px;
+              margin-top: 5px;" placeholder="비밀번호">
+            </div>
+            
             <div class="d-flex mt-2 justify-content-end">
               <input type='submit' class="btn btn-primary" id='addGstBookBtn' value="등록"></input>
             </div>
