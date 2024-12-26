@@ -241,16 +241,11 @@
           $(".gstbook_list").on('click', '.updateBtn', async function() {
                 const guestId = $(this).data('id');  // 버튼 ID에서 guestId 추출
                 const pass = $(this).data('password');
-                const text ="dasd"
+                let docs = await getDoc(doc(db, "gst_book", guestId));
+                let row = docs.data();
+                const text = row['text'];
+                console.log('guestId',guestId,'수정')
                 updateGstBook(guestId,pass,text);
-          });
-
-          //방명록 수정 후 저장 이벤트 등록
-          $(".gstbook_list").on('click', '.saveBtn', async function() {
-                const guestId = $(this).data('id');  // 버튼 ID에서 guestId 추출
-                const pass = $(this).data('password');
-                console.log('guestId',guestId)
-                saveGstBook(guestId,pass);
           });
 
           //입력시 알림메시지 사라지게
@@ -347,50 +342,61 @@
         }
 
         //방명록 수정
-        const updateGstBook = async (docId,pwd,text) =>{
-          if (!docId) {
+        const updateGstBook = async (guestId,pass,text) =>{
+          if (!guestId) {
               alert('수정할 문서를 찾을 수 없습니다.');
               return;
           }
           
-          // 수정 버튼 클릭 시 모달창 표시
-          $('#modal').fadeIn(); // 부드럽게 표시
-          $('#modal-content').val(text)
-          // 닫기 버튼 클릭 시 모달창 숨기기
-          $('.close').on('click', function () {
-              $('#modal').fadeOut(); // 부드럽게 숨김
-          });
+          let getpass = prompt("비밀번호를 입력하세요.");
+          if(pass==getpass){
+            // 수정 버튼 클릭 시 모달창 표시
+            $('#modal').fadeIn(); // 부드럽게 표시
+            $('#modal-content').val(text)
+            
+            // 닫기 버튼 클릭 시 모달창 숨기기
+            $('.close').on('click', function () {
+                $('#modal').fadeOut(); // 부드럽게 숨김
+            });
 
-          // 모달창 외부 클릭 시 모달창 숨기기
-          $(window).on('click', function (event) {
-              if ($(event.target).is('#modal')) {
-                  $('#modal').fadeOut(); // 부드럽게 숨김
-              }
+            // 모달창 외부 클릭 시 모달창 숨기기
+            $(window).on('click', function (event) {
+                if ($(event.target).is('#modal')) {
+                    $('#modal').fadeOut(); // 부드럽게 숨김
+                }
+            });
+
+
+          //방명록 수정 후 저장 이벤트 등록
+          $(".gstbook_list").on('click', '.saveBtn', async function() {
+                console.log('guestId',guestId,'저장')
+                saveGstBook(guestId,pass);
           });
+        }
           
       };
 
       //방명록 수정 후 저장
-      const saveGstBook = async (docId,pwd) =>{
-          let gstBookDocId = doc(db, "gst_book", docId);
+      const saveGstBook = async (guestId,pass,) =>{
           
-          let content = $('#content').val();
-           
-          // await updateDoc(gstBookDocId);
-          //   alert("방명록이 성공적으로 수정되었습니다.");
-          //   window.location.reload();
-          // } else {
-          //   alert("비밀번호가 다릅니다.");
-          // }
-          // } catch (error) {
-          // console.error("방명록 수정 중 오류 발생:", error);
-          // alert("방명록 수정에 실패했습니다.");
-          // }
-        // }
+         // 컬렉션과 문서 ID 지정
+        const collectionName = "gst_book";
+        const documentId = guestId;
 
+        // 수정할 필드와 새 값 지정
+        const fieldToUpdate = "text";
+        const newValue = $('#modal-content').val();
+
+        // 문서 참조 생성
+        let docs = await getDoc(doc(db, "gst_book", guestId));
+        const ref = doc(db, collectionName, documentId);
+        console.log(ref);
+
+        // 필드 업데이트
+        await updateDoc(ref, { text: newValue });
+
+        window.location.reload();
       };
-
-      console.log($('#content').val());
   
         //방명록 목록 가져오기
         const getAllGstBook = async () => {
@@ -422,6 +428,13 @@
           <button data-id=${data.id} data-password =${data.password} type="button" class="btn btn-outline-danger deleteBtn">삭제</button>
         </div>
         
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeButton">&times;</span>
+            <input id="modal-content" type="text" style='color: #555; font-size: 14px; line-height: 1.5;'></input>
+            <button data-id=${data.id} data-password =${data.password} type="button" class="btn btn-outline-success saveBtn">저장</button>
+        </div>
+     </div>
         
         `;
           });
@@ -523,13 +536,7 @@
           <div class ="gstbook_list"></div>
       </div>
       </div>
-      <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeButton">&times;</span>
-            <input id="modal-content" type="text" style='color: #555; font-size: 14px; line-height: 1.5;'></input>
-            <button data-id='${data.id}' data-password ='${data.password}' type="button" class="btn btn-outline-success saveBtn">저장</button>
-            </div>
-    </div>
+
       <!-- 이 안쪽에 코드 작성하시면 됩니다!! - 끝 -->
   </body>
 </html>
