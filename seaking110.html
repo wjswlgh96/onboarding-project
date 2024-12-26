@@ -168,10 +168,10 @@
         $(document).ready(async () => {
             const myData = await getDoc(doc(db, "members", "seaking110"));
 
-            const { member_id, name, profile_url, content, createdAt } =
+            const { member_id, name, profile_url, content} =
                 myData.data();
             const [after, mbti] = content.split("MBTI");
-            const [year, month, day] = createdAt.split(". ");
+
 
             $("#my_profile_img").attr("src", profile_url);
             $("#my_name").text("신입 개발자 " + name + "입니다");
@@ -192,8 +192,6 @@
                     <h1 id="my_name"></h1>
                 </div>
             </div>
-
-
             <div class="section_middle_wrapper">
                 <div class="info_item">
                     <h2 id="mbti">MBTI</h2>
