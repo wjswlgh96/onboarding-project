@@ -394,7 +394,11 @@
         $("#card").append(temp_html);
 
         $(`#${id}`).on("click", function () {
+        if(id === "seaking110" || id === "codingTrip" || id === "shryoo" || id === "wjswlgh96" || id === "pej")
           window.location.href = "./" + id + ".html";
+        else{
+          window.location.href = "./" + "default.html?id="+id;
+        }
         });
       });
 
