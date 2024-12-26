@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- BootStrap Script -->
-     
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
@@ -21,61 +21,124 @@
         href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro&display=swap"
         rel="stylesheet" />
 
-        <style>
-            body {
-              margin: 0;
-              padding: 0;
-              background-color: #333333; /* 진한 회색 배경 */
-              color: white; /* 흰색 글자 */
-              font-family: "Noto Sans KR", sans-serif;
-              height: 100vh;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              flex-direction: column; /* 세로 정렬 */
-            }
-          
-            .container {
-              text-align: center;
-              max-width: 850px; /* 최대 너비 제한 */
-              padding: 20px;
-              box-sizing: border-box;
-            }
-          
-            #my_profile_img {
-              width: 350px; /* 사진 크기 */
-              height: 350px;
-              border-radius: 50%; /* 동그란 사진 */
-              border: 3px solid white; /* 흰색 테두리 */
-              object-fit: cover;
-              object-position: center;
-              margin-bottom: 20px; /* 아래 여백 */
-            }
-          
-            h2 {
-              font-size: 24px;
-              margin: 15px 0;
-              font-weight: bold;
-            }
-          
-            p {
-              font-size: 20px;
-              line-height: 1.6;
-              margin: 10px 0;
-              word-wrap: break-word; /* 긴 단어 줄바꿈 */
-              max-width: 800px; /* 텍스트의 최대 너비 */
-              display: inline-block; /* 가운데 정렬 */
-            }
-          
-            .section_bottom_wrapper {
-              margin-top: 20px;
-              padding: 20px;
-              background-color: rgba(255, 255, 255, 0.1); /* 투명한 흰색 배경 */
-              border-radius: 10px;
-            }
-          </style>
-          
-          
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 섹션 스타일 */
+.data_section {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* 섹션 상단 스타일 */
+.section_top_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.section_top_wrapper img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 5px solid #e0e4eb;
+}
+
+.info_wrapper h1 {
+    font-size: 28px;
+    color: #555;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* 섹션 중간 부분(MBTI, MY INTERESTS, Blog 한 줄로 나열) */
+.section_middle_wrapper {
+    display: flex;
+    justify-content: space-between; /* 항목들이 가로로 나란히 정렬되도록 */
+    margin-top: 20px;
+    gap: 30px; /* 간격을 설정 */
+}
+
+.info_item {
+    text-align: center;
+    flex: 1; /* 항목들이 동일한 크기로 나누어짐 */
+}
+
+.info_item h2 {
+    font-size: 20px;
+    color: #8fa8c9;
+    font-weight: bold;
+}
+
+.info_item p {
+    font-size: 16px;
+    color: #333;
+}
+
+/* 섹션 하단 스타일 */
+.section_bottom_wrapper {
+    margin-top: 40px;
+    line-height: 1.6;
+    color: #666;
+    padding-left : 30px;
+    font-size: 18px;
+    text-align: left;
+}
+
+/* ABOUT ME 제목 스타일 */
+.data_section::before {
+    content: "ABOUT ME";
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #8fa8c9;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#my_name {
+    font-size: 28px;
+    color: black;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#mbti {
+    font-size: 22px;
+    color: #8fa8c9;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+     .icon{
+        color: #8fa8c9;
+     }
+
+    </style>
+
+
 
     <!-- FireBase 연동 및 기능 넣는 구간 -->
     <script type="module">
@@ -107,15 +170,13 @@
 
             const { member_id, name, profile_url, content, createdAt } =
                 myData.data();
-            const [before, after] = content.split("제가 좋아하는 것은");
-            const [after2, mbti] = after.split("MBTI");
+            const [after, mbti] = content.split("MBTI");
             const [year, month, day] = createdAt.split(". ");
 
             $("#my_profile_img").attr("src", profile_url);
-            $("#my_name").text("신입 개발자 "+name +"입니다");
-            $("#my_favorites").text(after2.trim());
+            $("#my_name").text("신입 개발자 " + name + "입니다");
             $("#my_mbti").text(mbti);
-            $("#my_message").html(before.trim());
+            $("#my_message").html(after.trim());
         });
     </script>
 </head>
@@ -129,10 +190,29 @@
                 </div>
                 <div class="info_wrapper">
                     <h1 id="my_name"></h1>
-                    <p><h2>관심사</h2> <span id="my_favorites"></span></p> <br>
-                    <p><h2>MBTI</h2><h2><span id="my_mbti"></span></h2></p>    
                 </div>
             </div>
+
+
+            <div class="section_middle_wrapper">
+                <div class="info_item">
+                    <h2 id="mbti">MBTI</h2>
+                    <h2><span id="my_mbti"></span></h2>
+                </div>
+                <div class="info_item">
+                    <h2>MY INTERESTS</h2>
+                    <p>⚾ 🏀 🍜 📺 💻 </p>
+                </div>
+                <div class="info_item">
+                    <h2>Blog</h2>
+                    <div class="icons">
+                        <a href="https://seaking110.tistory.com/" target="_blank" class="icon">
+                            <i id ="icon" class="fas fa-link"></i> <!-- 링크 아이콘 -->
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <div class="section_bottom_wrapper">
                 <p id="my_message"></p>
             </div>
