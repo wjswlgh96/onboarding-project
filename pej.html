@@ -17,10 +17,10 @@
     />
 
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Anton&family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Anton&family=Black+Han+Sans&family=Gowun+Dodum&family=Permanent+Marker&family=Yuji+Mai&display=swap");
 
       .intro {
-        font-family: 'Black Han Sans', serif;
+        font-family: "Black Han Sans", serif;
 
         height: 240px;
         width: 700px;
@@ -28,14 +28,18 @@
         padding-top: 20px;
         padding-left: 10px;
 
-        background-image: url('https://us.123rf.com/450wm/jaxja/jaxja1406/jaxja140600018/29021658-%ED%95%98%EB%8A%98%EA%B3%BC-%EC%88%B2%EC%97%90-%EA%B5%AC%EB%A6%84.jpg');
+        background-image: url("https://us.123rf.com/450wm/jaxja/jaxja1406/jaxja140600018/29021658-%ED%95%98%EB%8A%98%EA%B3%BC-%EC%88%B2%EC%97%90-%EA%B5%AC%EB%A6%84.jpg");
         background-position: center;
         background-size: cover;
       }
 
+      #allcard {
+        display: none;
+      }
+
       .card {
         margin: 0px auto 0px auto;
-        height: 100px;
+        min-height: 100px;
         width: 700px;
       }
 
@@ -49,7 +53,7 @@
 
     <script>
       function openclose() {
-        $('#allcard').toggle();
+        $("#allcard").toggle();
       }
     </script>
   </head>
@@ -63,9 +67,10 @@
         </button>
       </h1>
     </div>
-    
+
     <div>
       <!-- 개인 사진 삽입 -->
+      <!-- <img src="https://velog.velcdn.com/images/wjswlgh96/post/80f3f231-9616-40fb-a6df-38fd93e159f5/image.png"/> -->
     </div>
 
     <div id="allcard">
@@ -76,27 +81,26 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-header">
-          ⭐관심사</div>
-          <div class="card-body">
-            <p class="card-text">여행, 스페인어, 개발</p>
-          </div>
+        <div class="card-header">⭐관심사</div>
+        <div class="card-body">
+          <p class="card-text">여행, 스페인어, 개발</p>
         </div>
-        <div class="card">
-          <div class="card-header">⭐취미</div>
-          <div class="card-body">
-            <p class="card-text">자전거, 제빵</p>
-          </div>
+      </div>
+      <div class="card">
+        <div class="card-header">⭐취미</div>
+        <div class="card-body">
+          <p class="card-text">자전거, 제빵</p>
         </div>
-        <div class="card">
-          <div class="card-header">⭐한마디</div>
-          <div class="card-body">
-            <p class="card-text">
-              원래는 아프리카 전문 국제개발협력 NGO에서 일을 하다가 저만의 기술을 가지고
-              싶다는 생각에 개발자로 커리어 전환을 시도하게 되었습니다. 비전공자
-              노베이스지만 열심히 꾸준히 하다보면 우리 팀명처럼 언젠가 될 것이라고 생각합니다. 모두 파이팅입니다!
-            </p>
-          </div>
+      </div>
+      <div class="card">
+        <div class="card-header">⭐한마디</div>
+        <div class="card-body">
+          <p class="card-text">
+            원래는 아프리카 전문 국제개발협력 NGO에서 일을 하다가 저만의 기술을
+            가지고 싶다는 생각에 개발자로 커리어 전환을 시도하게 되었습니다.
+            비전공자 노베이스지만 열심히 꾸준히 하다보면 우리 팀명처럼 언젠가 될
+            것이라고 생각합니다. 모두 파이팅입니다!
+          </p>
         </div>
       </div>
     </div>
