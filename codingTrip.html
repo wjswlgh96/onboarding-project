@@ -17,8 +17,11 @@
     />
 
     <style>
-      .showName {
-        height: 350px;
+      #myName {
+        color : white;
+      }
+      #myContent{
+        color : darkviolet;
       }
     </style>
 
@@ -72,20 +75,18 @@
         'background-image': `url(${image})`,
         'background-size': 'cover',
         'background-position': 'center',
-        // 'width': '500px',
-        // 'height': '500px',
+        'opacity': '0.7',
         
       });
 
     </script>
   </head>
   <body>
-    <div id="myImage" class="showName">    
+    <div class="showName">    
       <div id="myImage" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
       <div class="col-md-6 p-lg-5 mx-auto my-5">
-        <!-- <div id="myImage"></div> -->
-        <h1 id="myName" class="display-3 fw-bold"></h1>
-        <h3 id="myContent" class="fw-normal text-muted mb-3"></h3>
+        <h1 id="myName" class="display-3 fw-bold name"></h1>
+        <h3 id="myContent" ></h3>
       </div>
       <div class="product-device shadow-sm d-none d-md-block"></div>
       <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
