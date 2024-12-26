@@ -132,6 +132,7 @@
         width: 1000px;
         margin : 50px auto 50px auto;
       }
+
       /* 방명록 부분 CSS - 끝 */
     </style>
 
@@ -195,9 +196,65 @@
                 //console.log(guestId)
                 deleteGstBook(guestId,pass)
           });
+
+          //입력시 알림메시지 사라지게
+          $("#gstbook_text").on('input',function(){
+            if($(this).hasClass('is-invalid')){
+              $("#gstbook_text").removeClass('is-invalid');
+              $("#gstbook_text").next('.invalid-feedback').remove();
+            }
+          })
+
+          $("#gstbook_username").on('input',function(){
+            if($(this).hasClass('is-invalid')){
+              $("#gstbook_username").removeClass('is-invalid');
+              $("#gstbook_username").next('.invalid-feedback').remove();
+            }
+          })
+
+          $("#gstbook_pw").on('input',function(){
+            if($(this).hasClass('is-invalid')){
+              $("#gstbook_pw").removeClass('is-invalid');
+              $("#gstbook_pw").next('.invalid-feedback').remove();
+            }
+          })
+
         };
+        //필수값 안내 메시지
+        const showWarning = (message, id) => {
+          $('.invalid-feedback').remove();
+          //부트스트랩 유효성검사 사용
+          $(`#${id}`).addClass('is-invalid');
+          $(`#${id}`).after(`<div class="invalid-feedback">${message}</div>`);
+          $(`#${id}`).focus();
+        };
+        //유효성(필수값) 체크
+        const isValid = () =>{
+          const text = $("#gstbook_text").val().trim();
+          const username = $("#gstbook_username").val().trim();
+          const password = $("#gstbook_pw").val().trim();
+          
+         
+          if (username === '') {
+              showWarning('작성자를 입력해주세요', 'gstbook_username');
+              return false;
+          } else if (text === '') {
+              showWarning('내용을 입력해주세요', 'gstbook_text');
+              return false;
+          } else if (password === '') {
+              showWarning('비밀번호를 입력해주세요', 'gstbook_pw');
+              return false;
+          }
+
+          return true;
+          
+        }
         //방명록 추가
         const addGstBook = async (data) => {
+          //유효하지않으면 종료
+          if(!isValid()) return;
+          
+
           let gstBookDoc = await addDoc(collection(db, "gst_book"), {
             text: data.text,
             username: data.username,
@@ -337,26 +394,26 @@
       <div class="guestBook">
         <div class="mt-2 p-5 bg-gray rounded">
           <h2 class="fs-6">방명록 남기기</h2>
-          <input type="text" 
-                class = "form-control"
-                id="gstbook_username"
-                style="margin-bottom: 7px; 
-                      border-radius: 4px; 
-                      border : 1px solid #ced4da; 
-                      width: 80px; padding: 6px 12px 6px 12px;" 
-                placeholder="작성자">
-          <input class="form-control" type="text" style="height: 70px; "id="gstbook_text" placeholder="내용">
-          <input type="text" 
-                class = "form-control"
-                id="gstbook_pw"
-                style="margin-bottom: 7px; 
-                      border-radius: 4px; 
-                      border : 1px solid #ced4da; 
-                      width: 80px; padding: 6px 12px 6px 12px;" 
-                placeholder="비밀번호">
-          <div class="d-flex mt-2 justify-content-end">
-              <button class="btn btn-primary" id = 'addGstBookBtn'>등록</button>
-          </div>
+            <input type="text" 
+                  class = "form-control"
+                  id="gstbook_username"
+                  style="margin-bottom: 7px; 
+                        border-radius: 4px; 
+                        border : 1px solid #ced4da; 
+                        width: 100px; padding: 6px 12px 6px 12px;" 
+                  placeholder="작성자">
+            <input class="form-control" type="text" style="height: 70px; "id="gstbook_text" placeholder="내용">
+            <input type="text" 
+                  class = "form-control"
+                  id="gstbook_pw"
+                  style="margin-bottom: 7px; 
+                        border-radius: 4px; 
+                        border : 1px solid #ced4da; 
+                        width: 80px; padding: 6px 12px 6px 12px;" 
+                  placeholder="비밀번호">
+            <div class="d-flex mt-2 justify-content-end">
+                <input type = 'submit' class="btn btn-primary" id = 'addGstBookBtn' te></input>
+            </div>    
           <div class ="gstbook_list"></div>
       </div>
       </div>
