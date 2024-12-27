@@ -575,12 +575,14 @@
 
           let getpass = prompt("비밀번호를 입력하세요.");
 
+          if (getpass == null) {
+            return;
+          }
+
           if (pwd == getpass) {
             await deleteDoc(gstBookDocId);
             alert("방명록이 성공적으로 삭제되었습니다.");
             window.location.reload();
-          } else if (getpass == null) {
-            return;
           } else {
             alert("비밀번호가 다릅니다.");
           }
