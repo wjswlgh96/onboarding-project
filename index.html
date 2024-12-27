@@ -276,7 +276,7 @@
         gap: 20px;
       }
       .invalid-feedback {
-        width:auto; 
+        width: auto;
       }
       /* 방명록 부분 CSS - 끝 */
     </style>
@@ -579,6 +579,8 @@
             await deleteDoc(gstBookDocId);
             alert("방명록이 성공적으로 삭제되었습니다.");
             window.location.reload();
+          } else if (getpass == null) {
+            return;
           } else {
             alert("비밀번호가 다릅니다.");
           }
@@ -853,7 +855,7 @@
           <div class="mt-2 p-5 bg-gray rounded">
             <h2 class="fs-6">방명록 남기기</h2>
             <div class="guestBook_input_top_wrapper">
-                <input
+              <input
                 type="text"
                 class="form-control"
                 id="gstbook_username"
