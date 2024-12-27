@@ -343,19 +343,7 @@
         );
         allMembers = memberDocs.docs.map((doc) => doc.data());
 
-        const scrollBoxes = [
-          ".scroll_action_01",
-          ".scroll_action_02",
-          ".scroll_action_03",
-          ".scroll_action_04",
-        ];
-
-        $(".scroll_btn").on("click", function () {
-          const targetIdx = $(this).index();
-          const top = $(scrollBoxes[targetIdx]).offset().top - 100;
-
-          window.scrollTo({ top, behavior: "smooth" });
-        });
+        scrollEvent();
 
         $("#addmember_toggle_btn").click(async function () {
           $("#add_member_box").toggle();
@@ -375,6 +363,22 @@
         updateGstBooks();
         deleteGstBook();
       });
+
+      const scrollEvent = () => {
+        const scrollBoxes = [
+          ".scroll_action_01",
+          ".scroll_action_02",
+          ".scroll_action_03",
+          ".scroll_action_04",
+        ];
+
+        $(".scroll_btn").on("click", function () {
+          const targetIdx = $(this).index();
+          const top = $(scrollBoxes[targetIdx]).offset().top - 100;
+
+          window.scrollTo({ top, behavior: "smooth" });
+        });
+      };
 
       /* 멤버 등록 로직 - 시작 (전지호) */
       const onChangeAddMemberBlobPhoto = async () => {
@@ -692,7 +696,6 @@
           }
         });
       };
-
       /* 방명록 로직 -끝 */
     </script>
   </head>
